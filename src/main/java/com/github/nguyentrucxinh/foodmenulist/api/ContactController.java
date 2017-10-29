@@ -1,7 +1,7 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
 import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
-import com.github.nguyentrucxinh.foodmenulist.repository.impl.ContactRepositoryImpl;
+import com.github.nguyentrucxinh.foodmenulist.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class ContactController {
 
     @Autowired
-    private ContactRepositoryImpl contactRepository;
+    private ContactRepository contactRepository;
 
     @GetMapping
     public List findAll() {
