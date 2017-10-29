@@ -39,10 +39,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
@@ -80,11 +76,6 @@
             <artifactId>appengine-api-stubs</artifactId>
             <version>${appengine.target.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.kernel164</groupId>
-            <artifactId>gmultipart</artifactId>
-            <version>0.4</version>
         </dependency>
         <!-- == End Google App Engine == -->
 
@@ -125,22 +116,8 @@
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine.target.version}</version>
-                <configuration>
-                    <fullScanSeconds>-1</fullScanSeconds>
-                    <jvmFlags>
-                        <!-- Config only for Dev -->
-                        <jvmFlag>-Dspring.thymeleaf.cache=false</jvmFlag>
-                        <!-- <jvmFlag>-Dxxx=yyy</jvmFlag>-->
-                    </jvmFlags>
-                </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
 </project>
