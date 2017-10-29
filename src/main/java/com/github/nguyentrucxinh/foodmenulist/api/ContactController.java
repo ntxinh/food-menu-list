@@ -1,5 +1,7 @@
-package com.github.nguyentrucxinh.foodmenulist;
+package com.github.nguyentrucxinh.foodmenulist.api;
 
+import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
+import com.github.nguyentrucxinh.foodmenulist.repository.ContactDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

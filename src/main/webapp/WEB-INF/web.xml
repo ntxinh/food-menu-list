@@ -40,7 +40,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-
+    <!-- Objectify -->
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -50,6 +50,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <listener>
-        <listener-class>com.github.nguyentrucxinh.foodmenulist.OfyHelper</listener-class>
+        <listener-class>com.github.nguyentrucxinh.foodmenulist.config.OfyHelper</listener-class>
     </listener>
 </web-app>

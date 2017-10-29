@@ -1,5 +1,6 @@
-package com.github.nguyentrucxinh.foodmenulist;
+package com.github.nguyentrucxinh.foodmenulist.config;
 
+import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextEvent;

@@ -1,5 +1,7 @@
-package com.github.nguyentrucxinh.foodmenulist;
+package com.github.nguyentrucxinh.foodmenulist.repository.impl;
 
+import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
+import com.github.nguyentrucxinh.foodmenulist.repository.ContactDAO;
 import com.googlecode.objectify.ObjectifyService;
 import org.springframework.stereotype.Component;
 
