@@ -1,0 +1,7 @@
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+spring:
+  jmx.enabled: false
+endpoints:
+  metrics.enabled: false
+  dump.enabled: false
+  shutdown.enabled: false

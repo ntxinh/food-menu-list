@@ -20,7 +20,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>xxxxxx.yyyyyy.zzzzzz.App</start-class>
-        <java.version>1.8</java.version>
+        <java.version>1.7</java.version>
         <spring-boot-legacy.version>1.0.1.RELEASE</spring-boot-legacy.version>
         <appengine.target.version>1.9.17</appengine.target.version>
         <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
@@ -52,10 +52,16 @@
             <artifactId>spring-boot-legacy</artifactId>
             <version>${spring-boot-legacy.version}</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>servlet-api</artifactId>-->
+            <!--<version>2.5</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- == End Legacy == -->
