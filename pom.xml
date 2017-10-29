@@ -3,12 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>am.ik.archetype</groupId>
-    <artifactId>spring-boot-gae-blank</artifactId>
-    <version>1.0.5</version>
+    <groupId>com.github.nguyentrucxinh</groupId>
+    <artifactId>food-menu-list</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Spring Boot GAE Blank Project (from https://github.com/making/spring-boot-gae-blank)</name>
+    <name>Food menu list</name>
+    <description>Food menu list</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -19,11 +20,13 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>xxxxxx.yyyyyy.zzzzzz.App</start-class>
+        <start-class>com.github.nguyentrucxinh.foodmenulist.App</start-class>
         <java.version>1.7</java.version>
         <spring-boot-legacy.version>1.0.1.RELEASE</spring-boot-legacy.version>
         <appengine.target.version>1.9.17</appengine.target.version>
         <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
+        <guava.version>20.0</guava.version>
+        <objectify.version>5.1.12</objectify.version>
     </properties>
 
     <dependencies>
@@ -88,12 +91,12 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>20.0</version>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.objectify</groupId>
             <artifactId>objectify</artifactId>
-            <version>5.1.12</version>
+            <version>${objectify.version}</version>
         </dependency>
     </dependencies>
     <build>

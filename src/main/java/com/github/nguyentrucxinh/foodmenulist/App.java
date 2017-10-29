@@ -1,4 +1,4 @@
-package xxxxxx.yyyyyy.zzzzzz;
+package com.github.nguyentrucxinh.foodmenulist;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

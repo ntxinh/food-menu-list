@@ -1,4 +1,4 @@
-package xxxxxx.yyyyyy.zzzzzz;
+package com.github.nguyentrucxinh.foodmenulist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
