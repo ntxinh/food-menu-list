@@ -27,6 +27,7 @@
         <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
         <guava.version>20.0</guava.version>
         <objectify.version>5.1.12</objectify.version>
+        <lombok.version>1.16.18</lombok.version>
     </properties>
 
     <dependencies>
@@ -97,6 +98,14 @@
             <groupId>com.googlecode.objectify</groupId>
             <artifactId>objectify</artifactId>
             <version>${objectify.version}</version>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
