@@ -1,7 +1,7 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
 import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
-import com.github.nguyentrucxinh.foodmenulist.repository.objectify.ContactObjectifyRepository;
+import com.github.nguyentrucxinh.foodmenulist.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,30 +12,30 @@ import java.util.List;
 public class ContactController {
 
     @Autowired
-    private ContactObjectifyRepository contactRepository;
+    private ContactService contactService;
 
     @GetMapping
     public List findAll() {
-        return contactRepository.findAll();
+        return contactService.findAll();
     }
 
     @GetMapping("/{id}")
     public Contact findById(@PathVariable Long id) {
-        return contactRepository.findById(id);
+        return contactService.findById(id);
     }
 
     @PostMapping()
     public Long create(@RequestBody Contact contact) {
-        return contactRepository.create(contact).getId();
+        return contactService.save(contact).getId();
     }
 
     @PutMapping("/{id}")
     public void update(@PathVariable Long id, @RequestBody Contact contact) {
-        contactRepository.update(id, contact);
+        contactService.save(contact);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        contactRepository.delete(id);
+        contactService.delete(id);
     }
 }
