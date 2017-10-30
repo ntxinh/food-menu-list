@@ -19,8 +19,8 @@
     </parent>
 
     <properties>
+        <start-class>com.github.nguyentrucxinh.foodmenulist.Application</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.github.nguyentrucxinh.foodmenulist.App</start-class>
         <java.version>1.7</java.version>
         <spring-boot-legacy.version>1.0.1.RELEASE</spring-boot-legacy.version>
         <appengine.target.version>1.9.17</appengine.target.version>
@@ -28,9 +28,11 @@
         <guava.version>20.0</guava.version>
         <objectify.version>5.1.12</objectify.version>
         <lombok.version>1.16.18</lombok.version>
+        <modelmapper.version>1.1.0</modelmapper.version>
     </properties>
 
     <dependencies>
+        <!-- == Begin Spring == -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -43,6 +45,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
@@ -50,6 +56,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- == End Spring == -->
+
         <!-- == Begin Legacy == -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,6 +77,7 @@
             <scope>provided</scope>
         </dependency>
         <!-- == End Legacy == -->
+
         <!-- == Begin Google App Engine == -->
         <dependency>
             <groupId>com.google.appengine</groupId>
@@ -87,8 +96,6 @@
             <version>${appengine.target.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- == End Google App Engine == -->
-
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -99,6 +106,7 @@
             <artifactId>objectify</artifactId>
             <version>${objectify.version}</version>
         </dependency>
+        <!-- == End Google App Engine == -->
 
         <!-- Lombok -->
         <dependency>
@@ -106,6 +114,13 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Mapper -->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
     </dependencies>
     <build>

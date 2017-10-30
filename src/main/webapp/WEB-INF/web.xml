@@ -5,7 +5,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>com.github.nguyentrucxinh.foodmenulist.App</param-value>
+        <param-value>com.github.nguyentrucxinh.foodmenulist.Application</param-value>
     </context-param>
 
     <listener>
