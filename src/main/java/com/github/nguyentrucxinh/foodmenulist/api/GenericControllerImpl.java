@@ -1,4 +1,4 @@
-package com.github.nguyentrucxinh.foodmenulist.api.impl;
+package com.github.nguyentrucxinh.foodmenulist.api;
 
 
 import com.github.nguyentrucxinh.foodmenulist.api.GenericController;
