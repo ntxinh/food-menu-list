@@ -42,8 +42,9 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
 
     @Override
     public E save(E t) {
+        // Key
         Result<Key<E>> result = ofy().save().entity(t);
-        System.out.println(result);
+        // Save
         result.now();
         return t;
     }
