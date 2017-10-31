@@ -55,3 +55,4 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
         ofy().delete().entity(t).now();
     }
 }
+
