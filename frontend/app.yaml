@@ -1,4 +1,6 @@
 runtime: python27
+# application: foodmenulist
+# version: 1
 # service: ui
 api_version: 1
 threadsafe: true
