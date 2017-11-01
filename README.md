@@ -34,9 +34,14 @@ modify application name in src/main/webapp/WEB-INF/appengine-web.xml if needed
     $ cd /food-menu-list/backend
     $ mvn clean install && mvn appengine:deploy
 
-Demo site is [here](http://foodmenulist.appspot.com).
+Demo site is [here](http://api-dot-foodmenulist.appspot.com).
 
 ## FRONDEND
+
+### Run locally:
+    $ npm start
+
+Go to http://localhost:4200
 
 ### Build
     $ ng build -op ../deploy/dist
@@ -44,3 +49,5 @@ Demo site is [here](http://foodmenulist.appspot.com).
 ### Deploy
     $ cd /food-menu-list/frontend/deploy
     $ gcloud app deploy
+
+Demo site is [here](http://foodmenulist.appspot.com).
