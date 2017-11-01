@@ -22,6 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloworldController {
   @GetMapping("/")
   public String hello() {
-    return "Hello world - springboot-appengine-standard!";
+    return "Hello world from Food Menu List Webservice";
   }
 }
