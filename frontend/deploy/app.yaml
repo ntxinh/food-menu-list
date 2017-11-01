@@ -6,7 +6,7 @@ api_version: 1
 threadsafe: true
 handlers:
 - url: /
-  static_files: template/index.html
-  upload: template/index.html
+  static_files: dist/index.html
+  upload: dist/index.html
 - url: /
-  static_dir: template
+  static_dir: dist
