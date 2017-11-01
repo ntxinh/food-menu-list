@@ -23,7 +23,8 @@
         "assets/css/style.css",
         "assets/css/flexslider.css",
         "assets/css/swipebox.css",
-        "assets/css/font-awesome.css"
+        "assets/css/font-awesome.css",
+        "assets/css/jquery-ui.css"
       ],
       "scripts": [
         "assets/js/jquery-2.2.3.min.js",
@@ -33,6 +34,8 @@
         "assets/js/swipe-box.js",
         "assets/js/jquery.swipebox.min.js",
         "assets/js/bootstrap.js",
+        "assets/js/jquery-ui.js",
+        "assets/js/jquery.flexslider.js",
         "assets/js/smooth-scrolling-of-move-up.js"
       ],
       "environmentSource": "environments/environment.ts",

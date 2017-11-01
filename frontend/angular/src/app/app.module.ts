@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+import {JqueryHelperService} from "./services/helpers/jquery.helper";
+
 @NgModule({
   declarations: [
     AppComponent
@@ -10,7 +12,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    JqueryHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
