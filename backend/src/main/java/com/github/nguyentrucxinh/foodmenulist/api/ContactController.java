@@ -4,7 +4,7 @@ import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/contact")
+@RequestMapping("/api/contacts")
 public class ContactController extends GenericControllerImpl<Contact> {
 
 }
