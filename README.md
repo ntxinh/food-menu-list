@@ -50,4 +50,6 @@ Go to http://localhost:4200
     $ cd /food-menu-list/frontend/deploy
     $ gcloud app deploy
 
+*Note:* If you don't see the change, try refresh browser with `Shift + F5` or `Ctrl + F5` or `Ctrl + R`
+
 Demo site is [here](http://foodmenulist.appspot.com).
