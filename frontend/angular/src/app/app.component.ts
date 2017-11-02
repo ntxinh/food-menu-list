@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
   }
 
   findByAll() {
-    debugger;
     return this.http.get('/api/contacts')
       .map((response: Response) =>response.json()).subscribe(
         (success: any) => {
