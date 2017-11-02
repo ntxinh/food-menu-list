@@ -5,106 +5,22 @@
       <h3> Our Gallery</h3>
     </div>
     <div class="gallery-agileinfo-row">
-      <div class="col-md-4 gallery-grids">
-        <div class="hover ehover14">
-          <a href="assets/images/g1.jpg" class="swipebox" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
-            <img src="assets/images/g1.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
+
+      <ng-container *ngFor="let itemArray of chunkArray(items, 3); let i = index">
+        <div *ngFor="let item of itemArray" class="col-md-4 gallery-grids"
+             [ngClass]="{'gallery-grids-mdl': i % 2 != 0}">
+          <div class="hover ehover14">
+            <a href="assets/images/g1.jpg" class="swipebox" [title]="item.description">
+              <img src="assets/images/g1.jpg" alt="" class="img-responsive"/>
+              <div class="overlay">
+                <h4>{{item.name}}</h4>
+                <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
+              </div>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 gallery-grids">
-        <div class="hover ehover14">
-          <a href="assets/images/g2.jpg" class="swipebox" title="Duis maximus tortor diam, ac lobortis justo rutrum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non purus fermentum, eleifend velit non">
-            <img src="assets/images/g2.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 gallery-grids">
-        <div class="hover ehover14">
-          <a href="assets/images/g3.jpg" class="swipebox" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
-            <img src="assets/images/g3.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 gallery-grids gallery-grids-mdl">
-        <div class="hover ehover14">
-          <a href="assets/images/g4.jpg" class="swipebox" title="Praesent non purus fermentum, eleifend velit non Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. ">
-            <img src="assets/images/g4.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 gallery-grids gallery-grids-mdl">
-        <div class="hover ehover14">
-          <a href="assets/images/g5.jpg" class="swipebox" title="Consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
-            <img src="assets/images/g5.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 gallery-grids gallery-grids-mdl">
-        <div class="hover ehover14">
-          <a href="assets/images/g6.jpg" class="swipebox" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
-            <img src="assets/images/g6.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 gallery-grids">
-        <div class="hover ehover14">
-          <a href="assets/images/g3.jpg" class="swipebox" title="Duis maximus tortor diam, ac lobortis justo rutrum quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non purus fermentum, eleifend velit non">
-            <img src="assets/images/g3.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 gallery-grids">
-        <div class="hover ehover14">
-          <a href="assets/images/g4.jpg" class="swipebox" title="Praesent non purus fermentum, eleifend velit non Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis.">
-            <img src="assets/images/g4.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 gallery-grids">
-        <div class="hover ehover14">
-          <a href="assets/images/g1.jpg" class="swipebox" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis maximus tortor diam, ac lobortis justo rutrum quis. Praesent non purus fermentum, eleifend velit non">
-            <img src="assets/images/g1.jpg" alt="" class="img-responsive" />
-            <div class="overlay">
-              <h4>gallery</h4>
-              <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="clearfix"> </div>
+      </ng-container>
+      <div class="clearfix"></div>
     </div>
   </div>
 </div>
