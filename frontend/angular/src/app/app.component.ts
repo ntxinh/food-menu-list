@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
+import {Http, Response} from '@angular/http';
 
-import {JqueryHelperService} from "./services/helpers/jquery.helper";
+import {JqueryHelperService} from './services/helpers/jquery.helper';
+
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 
@@ -16,6 +18,21 @@ export class AppComponent implements OnInit {
     this.jqueryHelperService.activeFlexSlider();
   }
 
-  constructor(private jqueryHelperService: JqueryHelperService) {
+  constructor(private http: Http, private jqueryHelperService: JqueryHelperService) {
+    this.findByAll();
   }
+
+  findByAll() {
+    debugger;
+    return this.http.get('/api/contacts')
+      .map((response: Response) =>response.json()).subscribe(
+        (success: any) => {
+          console.log('success');
+        },
+        (error: any) => {
+          console.log('error');
+        }
+      );
+  }
+
 }
