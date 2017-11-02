@@ -1,6 +1,7 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
 import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
+import com.github.nguyentrucxinh.foodmenulist.domain.Item;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextEvent;
@@ -15,6 +16,7 @@ public class OfyHelper implements ServletContextListener {
         // request.
 
         ObjectifyService.register(Contact.class);
+        ObjectifyService.register(Item.class);
     }
 
     public void contextDestroyed(ServletContextEvent event) {
