@@ -9,7 +9,8 @@ import 'rxjs/add/operator/map';
 })
 export class GalleryComponent implements OnInit {
 
-  private url: string = 'http://api-dot-foodmenulist.appspot.com/api';
+  private url: string = 'http://api-dot-foodmenulist.appspot.com';
+  private url_local: string = 'http://localhost:8080';
   private items: any[];
 
   ngOnInit(): void {
@@ -20,7 +21,7 @@ export class GalleryComponent implements OnInit {
   }
 
   findByAll() {
-    this.http.get(`/api/items`)
+    this.http.get(`${this.url}/api/items`)
       .map((response: Response) =>response.json())
       .subscribe(
         (success: any) => {
