@@ -8,7 +8,9 @@ public interface GenericController<E> {
 
     E findById(Long id);
 
-    E save(E t);
+    E create(E t);
+
+    E update(Long id, E t);
 
     void delete(Long id);
 }
