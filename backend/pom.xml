@@ -102,9 +102,16 @@
         </dependency>
         <!-- [END Google App Engine] -->
 
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-storage</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <finalName>food-menu-list</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
