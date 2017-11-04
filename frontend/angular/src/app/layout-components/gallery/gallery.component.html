@@ -10,8 +10,8 @@
         <div *ngFor="let item of itemArray" class="col-md-4 gallery-grids"
              [ngClass]="{'gallery-grids-mdl': i % 2 != 0}">
           <div class="hover ehover14">
-            <a href="assets/images/g1.jpg" class="swipebox" [title]="item.description">
-              <img src="assets/images/g1.jpg" alt="" class="img-responsive"/>
+            <a [href]="item.imageUrl" class="swipebox" [title]="item.description">
+              <img [src]="item.imageUrl" alt="" class="img-responsive"/>
               <div class="overlay">
                 <h4>{{item.name}}</h4>
                 <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>
