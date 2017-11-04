@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
@@ -22,29 +23,39 @@ import java.util.Arrays;
 import javax.servlet.ServletException;
 
 // [START example]
+@Configuration
 public class CloudStorageHelper {
 
     private static Storage storage = null;
-    private String bucketName = "foodmenulist.appspot.com";
+    private static final String bucketName = "foodmenulist.appspot.com";
 
-    // [START init]
-    static {
-
-        storage = StorageOptions.getDefaultInstance().getService();
-
-        String SERVICE_ACCOUNT_JSON_PATH = "/home/xinhnguyen/Downloads/foodmenulist-255d606b58b9.json";
-        try {
-            storage =
-                    StorageOptions.newBuilder()
-                            .setCredentials(
-                                    ServiceAccountCredentials.fromStream(
-                                            new FileInputStream(SERVICE_ACCOUNT_JSON_PATH)))
-                            .build()
-                            .getService();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void init(String[] activeProfiles) {
+        //Check if Active profiles contains "dev"
+        if (Arrays.stream(activeProfiles).anyMatch(
+                env -> (env.equalsIgnoreCase("dev")))) {
+            String SERVICE_ACCOUNT_JSON_PATH = "/home/xinhnguyen/Downloads/foodmenulist-255d606b58b9.json";
+            try {
+                storage =
+                        StorageOptions.newBuilder()
+                                .setCredentials(
+                                        ServiceAccountCredentials.fromStream(
+                                                new FileInputStream(SERVICE_ACCOUNT_JSON_PATH)))
+                                .build()
+                                .getService();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //Check if Active profiles contains "prod"
+        else if (Arrays.stream(activeProfiles).anyMatch(
+                env -> (env.equalsIgnoreCase("prod")))) {
+            storage = StorageOptions.getDefaultInstance().getService();
         }
     }
+
+    // [START init]
+//    static {
+//    }
     // [END init]
 
     // [START uploadFile]
@@ -84,7 +95,7 @@ public class CloudStorageHelper {
      * Extracts the file payload from an HttpServletRequest, checks that the file extension
      * is supported and uploads the file to Google Cloud Storage.
      */
-    public String getImageUrl(MultipartFile multipartFile) throws IOException, ServletException {
+    public String getImageUrl(MultipartFile multipartFile, String[] activeProfiles) throws IOException, ServletException {
         final String fileName = multipartFile.getOriginalFilename();
         String imageUrl = null;
         // Check extension of file
@@ -93,6 +104,7 @@ public class CloudStorageHelper {
             String[] allowedExt = {"jpg", "jpeg", "png", "gif"};
             for (String s : allowedExt) {
                 if (extension.equals(s)) {
+                    init(activeProfiles);
                     return this.uploadFile(multipartFile);
                 }
             }

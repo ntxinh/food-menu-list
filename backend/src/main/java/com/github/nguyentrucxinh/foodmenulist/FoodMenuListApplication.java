@@ -19,9 +19,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootExampleApplication {
+public class FoodMenuListApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SpringBootExampleApplication.class, args);
+    SpringApplication.run(FoodMenuListApplication.class, args);
   }
 }
