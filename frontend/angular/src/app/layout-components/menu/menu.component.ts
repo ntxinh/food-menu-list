@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Http, Response} from '@angular/http';
+
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-menu',
@@ -6,11 +9,27 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  private url: string = 'http://api-dot-foodmenulist.appspot.com';
+  private items: any[];
+
   ngOnInit(): void {
   }
 
-  constructor() {
+  constructor(private http: Http) {
+    this.findByAll();
+  }
 
+  findByAll() {
+    this.http.get(`${this.url}/api/items`)
+      .map((response: Response) =>response.json())
+      .subscribe(
+        (success: any) => {
+          this.items = success;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
 }
