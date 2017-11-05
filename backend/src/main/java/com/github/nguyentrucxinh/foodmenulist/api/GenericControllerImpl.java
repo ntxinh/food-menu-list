@@ -24,13 +24,13 @@ public abstract class GenericControllerImpl<E> implements GenericController<E> {
         return genericDao.findById(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public E create(@RequestBody E t) {
         return genericDao.save(t);
     }
 
-    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public E update(@PathVariable Long id, @RequestBody E t) {
         return genericDao.save(t);
