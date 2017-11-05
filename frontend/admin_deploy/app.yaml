@@ -1,0 +1,12 @@
+runtime: python27
+# application: foodmenulist
+# version: 1
+service: admin
+api_version: 1
+threadsafe: true
+handlers:
+- url: /
+  static_files: dist/index.html
+  upload: dist/index.html
+- url: /
+  static_dir: dist
