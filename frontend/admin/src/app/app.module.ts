@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
+import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {NavComponent} from './layout-components/nav/nav.component';
@@ -9,6 +10,7 @@ import {BreadcrumbComponent} from './layout-components/breadcrumb/breadcrumb.com
 import {SocialMediaComponent} from './layout-components/social-media/social-media.component';
 
 import {JqueryHelperService} from "./services/helpers/jquery.helper";
+import {FileHelperService} from "./services/helpers/file.helper";
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import {JqueryHelperService} from "./services/helpers/jquery.helper";
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
   providers: [
-    JqueryHelperService
+    JqueryHelperService,
+    FileHelperService
   ],
   bootstrap: [AppComponent]
 })
