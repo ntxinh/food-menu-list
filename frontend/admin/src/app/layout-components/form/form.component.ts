@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Http, RequestOptions, Response} from '@angular/http';
 
-import {FileHelperService} from "../../services/helpers/file.helper";
-
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -25,7 +23,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private http: Http, private fileHelperService: FileHelperService) {
+  constructor(private http: Http) {
 
   }
 
