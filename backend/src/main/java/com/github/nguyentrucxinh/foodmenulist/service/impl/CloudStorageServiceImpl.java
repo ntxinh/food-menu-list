@@ -10,6 +10,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,9 @@ import java.util.Collections;
 @Service
 public class CloudStorageServiceImpl implements CloudStorageService {
 
+    @Autowired
+    private Environment environment;
+
     private static Storage storage = null;
     private static final String bucketName = "foodmenulist.appspot.com";
 
@@ -30,7 +35,7 @@ public class CloudStorageServiceImpl implements CloudStorageService {
      * is supported and uploads the file to Google Cloud Storage.
      */
     @Override
-    public String getImageUrl(MultipartFile multipartFile, String[] activeProfiles) {
+    public String getImageUrl(MultipartFile multipartFile) {
         final String fileName = multipartFile.getOriginalFilename();
         // Check extension of file
         if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
@@ -38,7 +43,7 @@ public class CloudStorageServiceImpl implements CloudStorageService {
             String[] allowedExt = {"jpg", "jpeg", "png", "gif"};
             for (String s : allowedExt) {
                 if (extension.equals(s)) {
-                    init(activeProfiles);
+                    init();
                     try {
                         return uploadFile(multipartFile);
                     } catch (IOException e) {
@@ -86,9 +91,9 @@ public class CloudStorageServiceImpl implements CloudStorageService {
         else return "";
     }
 
-    private void init(String[] activeProfiles) {
+    private void init() {
         //Check if Active profiles contains "dev"
-        if (Arrays.stream(activeProfiles).anyMatch(
+        if (Arrays.stream(environment.getActiveProfiles()).anyMatch(
                 env -> (env.equalsIgnoreCase("dev")))) {
             String SERVICE_ACCOUNT_JSON_PATH = "/home/xinhnguyen/Downloads/foodmenulist-255d606b58b9.json";
             try {
@@ -104,7 +109,7 @@ public class CloudStorageServiceImpl implements CloudStorageService {
             }
         }
         //Check if Active profiles contains "prod"
-        else if (Arrays.stream(activeProfiles).anyMatch(
+        else if (Arrays.stream(environment.getActiveProfiles()).anyMatch(
                 env -> (env.equalsIgnoreCase("prod")))) {
             storage = StorageOptions.getDefaultInstance().getService();
         }

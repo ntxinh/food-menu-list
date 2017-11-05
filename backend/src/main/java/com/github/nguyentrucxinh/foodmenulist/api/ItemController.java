@@ -18,18 +18,22 @@ public class ItemController extends GenericControllerImpl<Item> {
     private ItemDao itemDao;
 
     @Autowired
-    private Environment environment;
-
-    @Autowired
     private CloudStorageService cloudStorageService;
 
     @PostMapping("/upload/{id}")
-    public Item save(@PathVariable Long id, @RequestParam("file") MultipartFile multipartFile) {
+    public Item upload(@PathVariable Long id, @RequestParam("file") MultipartFile multipartFile, @RequestParam String name, @RequestParam String description) {
 
-        String imageUrl = cloudStorageService.getImageUrl(multipartFile, environment.getActiveProfiles());
+        String imageUrl = cloudStorageService.getImageUrl(multipartFile);
 
-        Item item = itemDao.findById(id);
-        System.out.println(imageUrl);
+        Item item;
+
+        if (id <= 0)
+            item = new Item();
+        else
+            item = itemDao.findById(id);
+
+        item.setName(name);
+        item.setDescription(description);
         item.setImageUrl(imageUrl);
         item.setCreatedDate(new Date());
 
