@@ -11,6 +11,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +29,9 @@ public class CloudStorageServiceImpl implements CloudStorageService {
     private Environment environment;
 
     private static Storage storage = null;
-    private static final String bucketName = "foodmenulist.appspot.com";
+
+    @Value("${google-cloud-platform.google-cloud-storage.bucket-name}")
+    private String bucketName;
 
     /**
      * Extracts the file payload from an HttpServletRequest, checks that the file extension
@@ -63,19 +66,19 @@ public class CloudStorageServiceImpl implements CloudStorageService {
     @SuppressWarnings("deprecation")
     private String uploadFile(MultipartFile multipartFile) throws IOException {
 
-        final String fileExtension = getFileExtension(multipartFile);
-        final String fileName = multipartFile.getOriginalFilename().split("\\.")[0];
+        final String fileExtensionInput = getFileExtension(multipartFile);
+        final String fileNameInput = multipartFile.getOriginalFilename().split("\\.")[0];
 
         DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
         DateTime dt = DateTime.now(DateTimeZone.UTC);
         String dtString = dt.toString(dtf);
-        final String _fileName = fileName + dtString + "." + fileExtension;
+        final String fileName = fileNameInput + dtString + "." + fileExtensionInput;
 
-        // the inputstream is closed by default, so we don't need to close it here
+        // the InputStream is closed by default, so we don't need to close it here
         BlobInfo blobInfo =
                 storage.create(
                         BlobInfo
-                                .newBuilder(bucketName, _fileName)
+                                .newBuilder(bucketName, fileName)
                                 // Modify access list to allow all users with link to read file
                                 .setAcl(new ArrayList<>(Collections.singletonList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
                                 .build(),
