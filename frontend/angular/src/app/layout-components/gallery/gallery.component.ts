@@ -34,6 +34,9 @@ export class GalleryComponent implements OnInit {
   }
 
   public chunkArray(myArray, chunk_size){
+    if(myArray === undefined)
+      return;
+    
     let clone = this.cloneObject(myArray);
 
     let results = [];

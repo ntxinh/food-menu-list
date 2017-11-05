@@ -21,7 +21,7 @@
 
 ## BACKEND
 
-### Run on dev server
+### Run on GAE dev server
     $ cd /food-menu-list/backend
     $ mvn clean install && mvn appengine:run
 
@@ -34,8 +34,6 @@ modify application name in src/main/webapp/WEB-INF/appengine-web.xml if needed
     $ cd /food-menu-list/backend
     $ mvn clean install && mvn appengine:deploy
 
-Demo site is [here](http://api-dot-foodmenulist.appspot.com).
-
 ## FRONDEND
 
 ### Run locally:
@@ -44,7 +42,7 @@ Demo site is [here](http://api-dot-foodmenulist.appspot.com).
 Go to http://localhost:4200
 
 ### Build
-    $ ng build -op ../deploy/dist
+    $ npm run build
 
 ### Deploy
     $ cd /food-menu-list/frontend/deploy
@@ -52,4 +50,7 @@ Go to http://localhost:4200
 
 *Note:* If you don't see the change, try refresh browser with `Shift + F5` or `Ctrl + F5` or `Ctrl + R`
 
-Demo site is [here](http://foodmenulist.appspot.com).
+# DEMO
+- User Portal:    http://foodmenulist.appspot.com
+- Admin Portal:   http://admin-dot-foodmenulist.appspot.com
+- Service Portal: http://api-dot-foodmenulist.appspot.com
