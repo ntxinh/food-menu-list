@@ -32,6 +32,10 @@
         <maven.war.plugin.version>3.1.0</maven.war.plugin.version>
         <versions.maven.plugin.version>2.4</versions.maven.plugin.version>
         <appengine.maven.plugin.version>1.3.1</appengine.maven.plugin.version>
+
+        <!--<appengine.app.id>foodmenulist</appengine.app.id>-->
+        <!--<appengine.app.service>api</appengine.app.service>-->
+        <!--<appengine.app.version>1</appengine.app.version>-->
     </properties>
 
     <dependencies>
@@ -124,8 +128,11 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine.maven.plugin.version}</version>
-                <configuration>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<enableJarClasses>false</enableJarClasses>-->
+                    <!--<port>8181</port>-->
+                    <!--<address>0.0.0.0</address>-->
+                <!--</configuration>-->
             </plugin>
             <!-- [END cloudplugin] -->
 
