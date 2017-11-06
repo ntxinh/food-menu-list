@@ -39,30 +39,39 @@ modify application name in src/main/webapp/WEB-INF/appengine-web.xml if needed
 ### User Portal:
 
 - Run locally:
-    $ npm start
+```bash
+npm start
+```
 
 Go to http://localhost:4200
 
-- Build
-    $ cd /food-menu-list/frontend/user
-    $ npm run build
+- Build:
+```bash
+cd /food-menu-list/frontend/user
+npm run build
+```
 
-- Deploy
-    $ cd /food-menu-list/frontend/deploy_user
-    $ gcloud app deploy
+- Deploy:
+```
+cd /food-menu-list/frontend/deploy_user
+gcloud app deploy
+```
 
 ### Admin Portal:
 
 - Run locally:
+
     $ cd /food-menu-list/frontend/admin
     $ npm start
 
 Go to http://localhost:4200
 
-- Build
+- Build:
+
     $ npm run build
 
-- Deploy
+- Deploy:
+
     $ cd /food-menu-list/frontend/deploy_admin
     $ gcloud app deploy
 
