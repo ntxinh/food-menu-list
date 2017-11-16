@@ -11,7 +11,7 @@
              [ngClass]="{'gallery-grids-mdl': i % 2 != 0}">
           <div class="hover ehover14">
             <a [href]="item.imageUrl" class="swipebox" [title]="item.description">
-              <img [src]="item.imageUrl" alt="" class="img-responsive"/>
+              <img [src]="item.imageUrl ? item.imageUrl : defaultImage" alt="" class="img-responsive"/>
               <div class="overlay">
                 <h4>{{item.name}}</h4>
                 <div class="info nullbutton button" data-toggle="modal" data-target="#modal14">Show More</div>

@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 })
 export class GalleryComponent implements OnInit {
 
-  private url: string = environment.apiUrl;
+  public defaultImage: string = 'assets/images/g1.jpg';
   public items: any[];
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class GalleryComponent implements OnInit {
   }
 
   findByAll() {
-    this.http.get(`${this.url}/api/items`)
+    this.http.get(`${environment.apiUrl}/api/items`)
       .map((response: Response) =>response.json())
       .subscribe(
         (success: any) => {
