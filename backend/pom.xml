@@ -20,18 +20,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring.boot.version>1.5.8.RELEASE</spring.boot.version> <!-- DO NOT UPDATE w/o MANUAL TESTING -->
+        <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <servlet.api.version>3.1.0</servlet.api.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <appengine.target.version>1.9.58</appengine.target.version>
         <guava.version>20.0</guava.version>
         <objectify.version>5.1.12</objectify.version>
-        <maven.war.plugin.version>3.1.0</maven.war.plugin.version>
-        <versions.maven.plugin.version>2.4</versions.maven.plugin.version>
-        <appengine.maven.plugin.version>1.3.1</appengine.maven.plugin.version>
+        <maven-war-plugin.version>3.1.0</maven-war-plugin.version>
+        <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
+        <appengine-maven-plugin.version>1.3.1</appengine-maven-plugin.version>
+        <google-cloud-storage.version>1.8.0</google-cloud-storage.version>
 
         <!--<appengine.app.id>foodmenulist</appengine.app.id>-->
         <!--<appengine.app.service>api</appengine.app.service>-->
@@ -43,7 +44,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.boot.version}</version>
             <!-- Exclude Tomcat so that it doesn't conflict w/ Jetty server -->
             <exclusions>
                 <exclusion>
@@ -55,7 +55,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.boot.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- [END Spring] -->
@@ -64,7 +63,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.api.version}</version>
+            <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -76,7 +75,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- [START Google App Engine] -->
+        <!-- [START Google Cloud Platform] -->
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
@@ -95,6 +94,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-storage</artifactId>
+            <version>${google-cloud-storage.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
@@ -104,13 +108,7 @@
             <artifactId>objectify</artifactId>
             <version>${objectify.version}</version>
         </dependency>
-        <!-- [END Google App Engine] -->
-
-        <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-storage</artifactId>
-            <version>1.8.0</version>
-        </dependency>
+        <!-- [END Google Cloud Platform] -->
 
     </dependencies>
 
@@ -120,14 +118,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
             </plugin>
 
             <!-- [START cloudplugin] -->
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>${appengine.maven.plugin.version}</version>
+                <version>${appengine-maven-plugin.version}</version>
                 <!--<configuration>-->
                     <!--<enableJarClasses>false</enableJarClasses>-->
                     <!--<port>8181</port>-->
@@ -139,7 +136,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions.maven.plugin.version}</version>
+                <version>${versions-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>compile</phase>
@@ -159,7 +156,7 @@
 
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven.war.plugin.version}</version>
+                <version>${maven-war-plugin.version}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
