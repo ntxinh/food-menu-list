@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Http, RequestOptions, Response} from '@angular/http';
 
 import 'rxjs/add/operator/map';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-form',
@@ -9,9 +10,7 @@ import 'rxjs/add/operator/map';
 })
 export class FormComponent implements OnInit {
 
-  private url: string = 'http://api-dot-foodmenulist.appspot.com';
-
-  item: any = {
+  public item: any = {
     name: "",
     description: "",
     imageUrl: ""
@@ -38,7 +37,7 @@ export class FormComponent implements OnInit {
       formData.append("description", this.item.description);
       formData.append("file", this.getFileList()[0]);
 
-      this.http.post(`${this.url}/api/items/upload/0`, formData)
+      this.http.post(`${environment.apiUrl}/api/items/upload/0`, formData)
         .map((response: Response) => response.json())
         .subscribe(
           (success: any) => {

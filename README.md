@@ -45,7 +45,9 @@ $ mvn clean install && mvn appengine:deploy
 
 - Run locally:
 ```bash
-$ npm start
+$ npm run dev
+or
+$ npm run prod
 ```
 
 Go to http://localhost:4200
@@ -53,7 +55,9 @@ Go to http://localhost:4200
 - Build:
 ```bash
 $ cd /food-menu-list/frontend/user
-$ npm run build
+$ npm run build-dev
+or
+$ npm run build-prod
 ```
 
 - Deploy:
@@ -67,7 +71,9 @@ $ gcloud app deploy
 - Run locally:
 ```bash
 $ cd /food-menu-list/frontend/admin
-$ npm start
+$ npm run dev
+or
+$ npm run prod
 ```
 
 Go to http://localhost:4200
@@ -75,7 +81,9 @@ Go to http://localhost:4200
 - Build:
 
 ```bash
-$ npm run build
+$ npm run build-dev
+or
+$ npm run build-prod
 ```
 
 - Deploy:
