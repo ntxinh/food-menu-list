@@ -91,3 +91,6 @@ $ gcloud app deploy
 - User Portal:    http://foodmenulist.appspot.com
 - Admin Portal:   http://admin-dot-foodmenulist.appspot.com
 - Service Portal: http://api-dot-foodmenulist.appspot.com
+
+# ISSUES
+- https://github.com/angular/angular-cli/issues/7113

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
 
 import 'rxjs/add/operator/map';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-gallery',
@@ -9,9 +10,8 @@ import 'rxjs/add/operator/map';
 })
 export class GalleryComponent implements OnInit {
 
-  private url: string = 'http://api-dot-foodmenulist.appspot.com';
-  private url_local: string = 'http://localhost:8080';
-  private items: any[];
+  private url: string = environment.apiUrl;
+  public items: any[];
 
   ngOnInit(): void {
   }

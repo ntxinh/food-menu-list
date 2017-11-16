@@ -8,7 +8,11 @@
     "build": "ng build -op ../user_deploy/dist",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev": "ng s -dev",
+    "prod": "ng s -prod",
+    "build-dev": "ng b -dev -op ../user_deploy/dist",
+    "build-prod": "ng b -prod -op ../user_deploy/dist"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "core-js": "^2.4.1",
+    "enhanced-resolve": "^3.3.0",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.14"
   },

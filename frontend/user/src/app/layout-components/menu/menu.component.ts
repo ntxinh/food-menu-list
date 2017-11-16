@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 export class MenuComponent implements OnInit {
 
   private url: string = 'http://api-dot-foodmenulist.appspot.com';
-  private items: any[];
+  public items: any[];
 
   ngOnInit(): void {
   }
