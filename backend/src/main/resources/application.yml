@@ -1,6 +1,9 @@
 spring:
-    profiles:
-        active: prod
+  profiles:
+    active: prod
+
+security:
+  filter-order: 2
 
 google-cloud-platform:
   google-cloud-storage:
@@ -8,9 +11,9 @@ google-cloud-platform:
 ---
 
 spring:
-    profiles: dev
+  profiles: dev
 
 ---
 
 spring:
-    profiles: prod
+  profiles: prod
