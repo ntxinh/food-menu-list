@@ -62,4 +62,22 @@ export class FormComponent implements OnInit {
     }
   }
 
+  login(): void {
+    let user = {
+      "username": "admin",
+      "password": "password"
+    };
+    this.http.post(`${environment.apiUrl}/login`, user)
+      .subscribe(
+        (success: Response) => {
+          let authheader = success.headers.get('Authorization');
+          console.log(authheader);
+          console.log(success);
+        },
+        (error: Response) => {
+          console.log(error);
+        }
+      );
+  }
+
 }

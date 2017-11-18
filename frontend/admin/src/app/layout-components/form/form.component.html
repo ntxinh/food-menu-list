@@ -15,7 +15,7 @@
         <tr *ngFor="let item of items">
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>
-          <td><img src="{{item.imageUrl}}" alt="" width="80" height="80"></td>
+          <td><img [src]="item.imageUrl" [alt]="item.name" width="80" height="80"></td>
           <td>{{item.createDate}}</td>
         </tr>
       </tbody>
