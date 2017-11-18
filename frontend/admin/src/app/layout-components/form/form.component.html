@@ -1,3 +1,29 @@
+<!-- tables -->
+<div class="agile-tables">
+  <div class="w3l-table-info agile_info_shadow">
+    <h3 class="w3_inner_tittle two">Basic Implementation</h3>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Create Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>{{item.name}}</td>
+          <td>{{item.description}}</td>
+          <td><img src="{{item.imageUrl}}" alt="" width="80" height="80"></td>
+          <td>{{item.createDate}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- //tables -->
+
 <!--/forms-->
 <div class="forms-main_agileits">
 
@@ -16,7 +42,8 @@
         <div class="form-group">
           <label>File Image</label>
           <input #file multiple type="file">
-          <p class="help-block">Example block-level help text here.</p></div>
+          <p class="help-block">Example block-level help text here.</p>
+        </div>
 
         <button (click)="upload()" type="submit" class="btn btn-default">Submit</button>
       </form>

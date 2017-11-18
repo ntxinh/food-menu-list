@@ -10,6 +10,7 @@ import {environment} from '../../../environments/environment';
 })
 export class FormComponent implements OnInit {
 
+  public items: any = [];
   public item: any = {
     name: "",
     description: "",
@@ -20,17 +21,29 @@ export class FormComponent implements OnInit {
   file_view_child: any;
 
   ngOnInit(): void {
+    this.findAll();
   }
 
   constructor(private http: Http) {
-
   }
 
   public getFileList(): FileList {
     return this.file_view_child.nativeElement.files;
   }
 
-  upload() {
+  findAll(): void {
+    this.http.get(`${environment.apiUrl}/api/items`)
+      .map((response: Response) => response.json())
+      .subscribe(
+        (success: any) => {
+          this.items = success;
+        },
+        (error: any) => {
+        }
+      );
+  }
+
+  upload(): void {
     if (this.getFileList().length > 0) {
       let formData: FormData = new FormData();
       formData.append("name", this.item.name);
@@ -41,10 +54,9 @@ export class FormComponent implements OnInit {
         .map((response: Response) => response.json())
         .subscribe(
           (success: any) => {
-            console.log(success);
+            this.findAll();
           },
           (error: any) => {
-            console.log(error);
           }
         );
     }

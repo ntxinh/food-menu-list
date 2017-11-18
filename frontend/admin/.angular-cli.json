@@ -23,7 +23,9 @@
         "assets/css/component.css",
         "assets/css/style_grid.css",
         "assets/css/style.css",
-        "assets/css/font-awesome.css"
+        "assets/css/font-awesome.css",
+        "assets/css/table-style.css",
+        "assets/css/basictable.css"
       ],
       "scripts": [
         "assets/js/jquery-2.1.4.min.js",
