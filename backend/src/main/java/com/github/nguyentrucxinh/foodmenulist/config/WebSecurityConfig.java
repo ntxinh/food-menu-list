@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/user/login").permitAll()
 //                .anyRequest().authenticated()
                 .antMatchers(HttpMethod.POST, SecurityConstants.LOG_IN_URL).permitAll()
-                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_ADMIN_URL).permitAll()
+                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
                 .antMatchers(SecurityConstants.API_USER_URL + "/**").permitAll()
                 .antMatchers(SecurityConstants.API_ADMIN_URL + "/**").authenticated()
                 .anyRequest().authenticated()

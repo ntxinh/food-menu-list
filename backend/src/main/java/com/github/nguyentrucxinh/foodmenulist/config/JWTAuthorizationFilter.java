@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
+import com.github.nguyentrucxinh.foodmenulist.api.exceptions.TokenExpiredException;
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,7 +32,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         log.info("Path: " + path);
 
-        if (!path.startsWith(SecurityConstants.API_ADMIN_URL + "/") || path.equals(SecurityConstants.SIGN_UP_ADMIN_URL)) {
+        if (!path.startsWith(SecurityConstants.API_ADMIN_URL + "/")) {
             chain.doFilter(req, res);
             return;
         }
@@ -73,9 +74,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 return null;
             } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {
                 log.info("Invalid JWT Token");
-                throw new BadCredentialsException("Invalid JWT token: ", ex);
+//                throw new BadCredentialsException("Invalid JWT token: ", ex);
+                throw new TokenExpiredException("JWT Token is expired111");
             } catch (ExpiredJwtException expiredEx) {
                 log.info("JWT Token is expired");
+                throw new TokenExpiredException("JWT Token is expired");
             }
         }
         return null;

@@ -1,6 +1,5 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
-import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.AuthorityDao;
 import com.github.nguyentrucxinh.foodmenulist.dao.UserDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Authority;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(SecurityConstants.API_ADMIN_URL + "/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
