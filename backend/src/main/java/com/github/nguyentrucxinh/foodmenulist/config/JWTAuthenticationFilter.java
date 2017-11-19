@@ -18,13 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import static com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+    private static final Logger log = Logger.getLogger(JWTAuthenticationFilter.class.getName());
+
     private AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+        log.info(JWTAuthenticationFilter.class.getName());
         this.authenticationManager = authenticationManager;
     }
 
@@ -34,6 +39,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             ApplicationUser creds = new ObjectMapper()
                     .readValue(req.getInputStream(), ApplicationUser.class);
+
+            log.info("Username: " + creds.getUsername());
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -57,6 +64,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
                 .compact();
+
+        log.info("Token: " + token);
+
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
 }
