@@ -31,7 +31,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         log.info("Path: " + path);
 
-        if (!path.startsWith(SecurityConstants.API_URL + "/")) {
+        if (!path.startsWith(SecurityConstants.API_ADMIN_URL + "/") || path.equals(SecurityConstants.SIGN_UP_ADMIN_URL)) {
             chain.doFilter(req, res);
             return;
         }

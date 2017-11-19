@@ -1,6 +1,7 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,16 +21,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
+        http
+                .cors()
+                .and().csrf()
+                .disable()
+                .authorizeRequests()
 //                .antMatchers("/user/**").hasRole("USER")
 //                .antMatchers("/admin/**").hasRole("ADMIN")
 //                .antMatchers("/admin/login").permitAll()
 //                .antMatchers("/user/login").permitAll()
 //                .anyRequest().authenticated()
-                .antMatchers(SecurityConstants.LOG_IN_URL).permitAll()
-                .antMatchers(SecurityConstants.SIGN_UP_URL).permitAll()
-                .antMatchers("/api/items").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers(HttpMethod.POST, SecurityConstants.LOG_IN_URL).permitAll()
+                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_ADMIN_URL).permitAll()
+                .antMatchers(SecurityConstants.API_USER_URL + "/**").permitAll()
+                .antMatchers(SecurityConstants.API_ADMIN_URL + "/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

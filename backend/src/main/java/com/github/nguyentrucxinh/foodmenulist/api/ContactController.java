@@ -1,10 +1,11 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
+import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.domain.Contact;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/contacts")
+@RequestMapping(SecurityConstants.API_ADMIN_URL + "/contacts")
 public class ContactController extends GenericControllerImpl<Contact> {
 
 }

@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
+import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.ItemDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Item;
 import com.github.nguyentrucxinh.foodmenulist.service.CloudStorageService;
@@ -11,7 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/items")
+@RequestMapping({
+        SecurityConstants.API_ADMIN_URL + "/items",
+        SecurityConstants.API_USER_URL + "/items"
+})
 public class ItemController extends GenericControllerImpl<Item> {
 
     @Autowired

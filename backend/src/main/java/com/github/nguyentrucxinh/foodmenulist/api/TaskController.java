@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
+import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.TaskDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping(SecurityConstants.API_ADMIN_URL + "/tasks")
 public class TaskController {
 
     @Autowired

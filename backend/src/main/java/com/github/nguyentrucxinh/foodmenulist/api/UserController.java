@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
+import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.AuthorityDao;
 import com.github.nguyentrucxinh.foodmenulist.dao.UserDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Authority;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(SecurityConstants.API_ADMIN_URL + "/users")
 public class UserController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class UserController {
         User userSaved = userDao.save(user);
 
         Authority authority = new Authority();
-        authority.setAuthority("ROLE_USER");
+        authority.setAuthority("ROLE_ADMIN");
         authority.setUser(Ref.create(userSaved));
         authorityDao.save(authority);
 

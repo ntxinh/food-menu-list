@@ -21,7 +21,8 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping(SecurityConstants.LOG_IN_URL).exposedHeaders(SecurityConstants.HEADER_STRING);
-                registry.addMapping(SecurityConstants.API_URL + "/**");
+                registry.addMapping(SecurityConstants.API_ADMIN_URL + "/**");
+                registry.addMapping(SecurityConstants.API_USER_URL + "/**");
             }
         };
     }
