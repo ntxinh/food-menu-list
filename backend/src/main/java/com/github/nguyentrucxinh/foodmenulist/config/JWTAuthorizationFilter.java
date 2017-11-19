@@ -23,7 +23,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
-        log.info(JWTAuthorizationFilter.class.getName());
     }
 
     @Override
