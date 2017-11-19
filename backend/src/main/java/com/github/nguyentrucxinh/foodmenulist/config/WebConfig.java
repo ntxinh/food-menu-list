@@ -7,10 +7,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import static com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants.API_URL;
-import static com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants.HEADER_STRING;
-import static com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants.LOG_IN_URL;
-
 @Configuration
 public class WebConfig {
 
@@ -24,8 +20,8 @@ public class WebConfig {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping(LOG_IN_URL).exposedHeaders(HEADER_STRING);
-                registry.addMapping(API_URL + "/**");
+                registry.addMapping(SecurityConstants.LOG_IN_URL).exposedHeaders(SecurityConstants.HEADER_STRING);
+                registry.addMapping(SecurityConstants.API_URL + "/**");
             }
         };
     }

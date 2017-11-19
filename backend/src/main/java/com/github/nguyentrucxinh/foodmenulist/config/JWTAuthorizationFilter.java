@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import static com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants.*;
-
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private static final Logger log = Logger.getLogger(JWTAuthorizationFilter.class.getName());
@@ -33,16 +31,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         log.info("Path: " + path);
 
-        if (!path.startsWith(API_URL + "/")) {
+        if (!path.startsWith(SecurityConstants.API_URL + "/")) {
             chain.doFilter(req, res);
             return;
         }
 
-        String header = req.getHeader(HEADER_STRING);
+        String header = req.getHeader(SecurityConstants.HEADER_STRING);
 
         log.info("Header: " + header);
 
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             chain.doFilter(req, res);
             return;
         }
@@ -55,13 +53,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
+        String token = request.getHeader(SecurityConstants.HEADER_STRING);
         log.info("Token: " + token);
         if (token != null) {
             try {
                 Claims claims = Jwts.parser()
-                        .setSigningKey(SECRET.getBytes())
-                        .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                        .setSigningKey(SecurityConstants.SECRET.getBytes())
+                        .parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                         .getBody();
 
                 // parse the token.

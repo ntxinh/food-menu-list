@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.domain;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Authority extends BaseEntity {
 
-    @NotNull
-    private String username;
+//    @NotNull
+//    private String username;
+
+    private Ref<User> user;
 
     @NotNull
     private String authority;

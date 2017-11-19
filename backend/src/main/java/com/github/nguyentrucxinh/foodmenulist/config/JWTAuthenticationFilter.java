@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import static com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants.*;
-
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private static final Logger log = Logger.getLogger(JWTAuthenticationFilter.class.getName());
@@ -59,12 +57,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = Jwts.builder()
                 .setSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
                 .compact();
 
         log.info("Token: " + token);
 
-        res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
     }
 }
