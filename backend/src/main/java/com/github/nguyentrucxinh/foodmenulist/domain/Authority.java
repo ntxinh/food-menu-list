@@ -5,13 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-public class ApplicationUser extends BaseEntity {
+public class Authority extends BaseEntity {
 
+    @NotNull
     private String username;
-    private String password;
 
+    @NotNull
+    private String authority;
 }
