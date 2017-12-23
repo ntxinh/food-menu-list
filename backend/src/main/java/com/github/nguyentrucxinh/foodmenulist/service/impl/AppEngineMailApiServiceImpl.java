@@ -1,7 +1,11 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
+import com.github.nguyentrucxinh.foodmenulist.common.constants.MailType;
+import com.github.nguyentrucxinh.foodmenulist.common.constants.RecipientType;
+import com.github.nguyentrucxinh.foodmenulist.dto.MailDto;
 import com.github.nguyentrucxinh.foodmenulist.service.AppEngineMailApiService;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
+import com.github.nguyentrucxinh.foodmenulist.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +40,9 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
 
     @Autowired
     private GoogleCloudStorageService googleCloudStorageService;
+
+    @Autowired
+    private TemplateService templateService;
 
     @Override
     public void sendSimpleMail() {
@@ -126,5 +133,89 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
     public void sendMultipartMail(String blobName, Long generation) {
         byte[] content = googleCloudStorageService.readFile(blobName, generation);
         sendMultipartMail(content, "manual.pdf", "application/pdf");
+    }
+
+    @Override
+    public void sendMail(MailType mailType, MailDto mailDto) {
+
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress("nguyentrucxjnh@gmail.com", "github.com/nguyentrucxinh XinhNguyen"));
+
+            mailDto.getRecipientDtos().forEach(recipientDto -> {
+                try {
+                    Message.RecipientType recipientType;
+                    if (RecipientType.TO == recipientDto.getRecipientType()) {
+                        recipientType = Message.RecipientType.TO;
+                    } else if (RecipientType.CC == recipientDto.getRecipientType()) {
+                        recipientType = Message.RecipientType.CC;
+                    } else {
+                        recipientType = Message.RecipientType.BCC;
+                    }
+                    msg.addRecipient(recipientType,
+                            new InternetAddress(recipientDto.getAddress(), recipientDto.getPersonal()));
+                } catch (MessagingException e) {
+                    LOGGER.info("Throw MessagingException: ");
+                    LOGGER.log(Level.SEVERE, e.toString(), e);
+                } catch (UnsupportedEncodingException e) {
+                    LOGGER.info("Throw UnsupportedEncodingException: ");
+                    LOGGER.log(Level.SEVERE, e.toString(), e);
+                }
+            });
+
+            msg.setSubject(mailDto.getSubject());
+            msg.setText(mailDto.getContent() + "simple");
+
+            if (MailType.MULTIPART == mailType) {
+                // [START multipart_example]
+                Multipart mp = new MimeMultipart();
+
+                String content;
+                if (mailDto.isUseTemplate()) {
+                    content = templateService.mergeTemplateIntoString(mailDto.getTemplateDto().getTemplateName(), mailDto.getTemplateDto().getDataModel());
+                } else {
+                    content = mailDto.getContent();
+                }
+
+                MimeBodyPart htmlPart = new MimeBodyPart();
+                htmlPart.setContent(content, mailDto.getContentType());
+                mp.addBodyPart(htmlPart);
+
+                MimeBodyPart attachment = new MimeBodyPart();
+
+                mailDto.getFileAttachmentDtos().forEach(fileAttachmentDto -> {
+                    InputStream attachmentDataStream = new ByteArrayInputStream(fileAttachmentDto.getContent());
+                    try {
+                        attachment.setFileName(fileAttachmentDto.getFileName());
+                        attachment.setContent(attachmentDataStream, fileAttachmentDto.getContentType());
+                        mp.addBodyPart(attachment);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                msg.setContent(mp);
+                // [END multipart_example]
+            }
+
+            Transport.send(msg);
+
+        } catch (AddressException e) {
+            LOGGER.info("Throw AddressException: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        } catch (MessagingException e) {
+            LOGGER.info("Throw MessagingException: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.info("Throw UnsupportedEncodingException: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        } catch (IOException e) {
+            LOGGER.info("Throw IOException: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
     }
 }
