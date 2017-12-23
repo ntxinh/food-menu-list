@@ -6,7 +6,6 @@ import com.github.nguyentrucxinh.foodmenulist.dao.ItemDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Item;
 import com.github.nguyentrucxinh.foodmenulist.service.CloudStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
