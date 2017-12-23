@@ -2,10 +2,7 @@ package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.google.cloud.storage.Acl;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.*;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -39,8 +36,8 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
     @Value("${google-cloud-platform.google-cloud-storage.bucket-name}")
     private String bucketName;
 
-    @Value("${google-cloud-platform.service-account.file-name}")
-    private String serviceAccountFileName;
+    @Value("${google-cloud-platform.service-account-credentials.file-name}")
+    private String serviceAccountCredentialsFileName;
 
     /**
      * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
@@ -81,6 +78,10 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
 
         LOGGER.info("Upload " + fileName + " to " + directoryPath + "completed!");
 
+        //
+        BlobId blobId = blobInfo.getBlobId();
+        Blob blob = storage.get(blobId);
+
         // return the public download link
         return blobInfo.getMediaLink();
     }
@@ -100,7 +101,7 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
         if (Arrays.stream(environment.getActiveProfiles()).anyMatch(
                 env -> (env.equalsIgnoreCase("dev")))) {
             try {
-                File file = ResourceUtils.getFile("classpath:" + serviceAccountFileName);
+                File file = ResourceUtils.getFile("classpath:" + serviceAccountCredentialsFileName);
                 storage =
                         StorageOptions.newBuilder()
                                 .setCredentials(
