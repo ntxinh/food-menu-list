@@ -42,7 +42,7 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("nguyentrucxjnh@gmail.com", "github.com/nguyentrucxinh XinhNguyen"));
             msg.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress("ntxinh94@gmail.com", "Mr. Xinh"));
+                    new InternetAddress("tuthithaodung@gmail.com", "Ms. Dung"));
             msg.setSubject("Your Example.com account has been activated");
             msg.setText("This is a test");
             Transport.send(msg);
@@ -70,7 +70,7 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("nguyentrucxjnh@gmail.com", "github.com/nguyentrucxinh XinhNguyen"));
             msg.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress("ntxinh94@gmail.com", "Mr. Xinh"));
+                    new InternetAddress("tuthithaodung@gmail.com", "Ms. Dung"));
             msg.setSubject("Your Example.com account has been activated");
             msg.setText(msgBody);
 

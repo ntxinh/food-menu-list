@@ -17,4 +17,7 @@ public class Item extends BaseEntity {
     private String description;
     private String imageUrl;
     private Date createdDate;
+
+    private String blobName;
+    private Long generation;
 }

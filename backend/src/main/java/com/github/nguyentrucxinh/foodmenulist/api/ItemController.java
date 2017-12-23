@@ -4,6 +4,7 @@ import com.github.nguyentrucxinh.foodmenulist.config.GoogleCloudStorageConstants
 import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.ItemDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Item;
+import com.github.nguyentrucxinh.foodmenulist.dto.UploadResultDto;
 import com.github.nguyentrucxinh.foodmenulist.service.AppEngineMailApiService;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ItemController extends GenericControllerImpl<Item> {
     @PostMapping("/upload/{id}")
     public Item upload(@PathVariable Long id, @RequestParam("file") MultipartFile multipartFile, @RequestParam String name, @RequestParam String description) {
 
-        String imageUrl = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
+        UploadResultDto uploadResultDto = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
         appEngineMailApiService.sendSimpleMail();
         appEngineMailApiService.sendMultipartMail(multipartFile);
 
@@ -47,8 +48,10 @@ public class ItemController extends GenericControllerImpl<Item> {
 
         item.setName(name);
         item.setDescription(description);
-        item.setImageUrl(imageUrl);
+        item.setImageUrl(uploadResultDto.getMediaLink());
         item.setCreatedDate(new Date());
+        item.setBlobName(uploadResultDto.getBlobName());
+        item.setGeneration(uploadResultDto.getGeneration());
 
         LOGGER.info(item.toString() + " saving...");
 

@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
+import com.github.nguyentrucxinh.foodmenulist.dto.UploadResultDto;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.storage.*;
@@ -17,11 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.WritableByteChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
 public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService {
@@ -44,7 +49,7 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
      * environment variable, appending a timestamp to end of the uploaded filename.
      */
     @Override
-    public String uploadAndGetMediaLink(MultipartFile multipartFile, String directoryPath) {
+    public UploadResultDto uploadAndGetMediaLink(MultipartFile multipartFile, String directoryPath) {
 
         init();
 
@@ -78,12 +83,16 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
 
         LOGGER.info("Upload " + fileName + " to " + directoryPath + "completed!");
 
-        //
+        // Blob
         BlobId blobId = blobInfo.getBlobId();
         Blob blob = storage.get(blobId);
 
-        // return the public download link
-        return blobInfo.getMediaLink();
+        // Return
+        return UploadResultDto.builder()
+                .mediaLink(blobInfo.getMediaLink())
+                .blobName(blob.getName())
+                .generation(blob.getGeneration())
+                .build();
     }
 
     private String getFileExtension(MultipartFile multipartFile) {
@@ -118,6 +127,41 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
         else if (Arrays.stream(environment.getActiveProfiles()).anyMatch(
                 env -> (env.equalsIgnoreCase("prod")))) {
             storage = StorageOptions.getDefaultInstance().getService();
+        }
+    }
+
+    @Override
+    public byte[] readFile(String blobName, Long generation) {
+        BlobId blobId = BlobId.of(bucketName, blobName, generation);
+        Blob blob = storage.get(blobId);
+        return blob.getContent();
+//        return blob.getContent(Blob.BlobSourceOption.generationMatch());
+    }
+
+    @Override
+    public void createBlob() {
+        Storage storage = StorageOptions.getDefaultInstance().getService();
+        BlobId blobId = BlobId.of("bucket", "blob_name");
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
+        Blob blob = storage.create(blobInfo, "Hello, Cloud Storage!".getBytes(UTF_8));
+    }
+
+    @Override
+    public void updateBlob() {
+        Storage storage = StorageOptions.getDefaultInstance().getService();
+        BlobId blobId = BlobId.of("bucket", "blob_name");
+        Blob blob = storage.get(blobId);
+        if (blob != null) {
+            byte[] prevContent = blob.getContent();
+            System.out.println(new String(prevContent, UTF_8));
+            WritableByteChannel channel = blob.writer();
+            try {
+                channel.write(ByteBuffer.wrap("Updated content".getBytes(UTF_8)));
+                channel.close();
+            } catch (IOException e) {
+                LOGGER.info("Throw IOException: ");
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
     }
 }
