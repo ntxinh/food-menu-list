@@ -35,6 +35,8 @@ public class ItemController extends GenericControllerImpl<Item> {
     public Item upload(@PathVariable Long id, @RequestParam("file") MultipartFile multipartFile, @RequestParam String name, @RequestParam String description) {
 
         String imageUrl = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
+        appEngineMailApiService.sendSimpleMail();
+        appEngineMailApiService.sendMultipartMail(multipartFile);
 
         Item item;
 
@@ -45,20 +47,6 @@ public class ItemController extends GenericControllerImpl<Item> {
 
         item.setName(name);
         item.setDescription(description);
-        item.setImageUrl(imageUrl);
-        item.setCreatedDate(new Date());
-
-        return itemDao.save(item);
-    }
-
-    @PostMapping("/upload-v2/{id}")
-    public Item uploadV2(@PathVariable Long id, @ModelAttribute Item item) {
-
-        String imageUrl = googleCloudStorageService.uploadAndGetMediaLink(item.getFile(), GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
-        appEngineMailApiService.sendSimpleMail();
-        appEngineMailApiService.sendMultipartMail(item.getFile());
-
-        item.setId(id > 0 ? id : null);
         item.setImageUrl(imageUrl);
         item.setCreatedDate(new Date());
 
