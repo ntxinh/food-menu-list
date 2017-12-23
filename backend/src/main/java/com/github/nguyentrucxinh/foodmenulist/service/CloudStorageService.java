@@ -4,5 +4,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface CloudStorageService {
 
-    String getImageUrl(MultipartFile multipartFile);
+    String uploadAndGetMediaLink(MultipartFile multipartFile, String directoryPath);
 }

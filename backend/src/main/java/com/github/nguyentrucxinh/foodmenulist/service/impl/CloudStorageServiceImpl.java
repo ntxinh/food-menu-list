@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
+import com.github.nguyentrucxinh.foodmenulist.config.GoogleCloudStorageConstants;
 import com.github.nguyentrucxinh.foodmenulist.service.CloudStorageService;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.storage.Acl;
@@ -14,16 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class CloudStorageServiceImpl implements CloudStorageService {
+
+    private static final Logger LOGGER = Logger.getLogger(CloudStorageServiceImpl.class.getName());
 
     @Autowired
     private Environment environment;
@@ -34,37 +41,13 @@ public class CloudStorageServiceImpl implements CloudStorageService {
     private String bucketName;
 
     /**
-     * Extracts the file payload from an HttpServletRequest, checks that the file extension
-     * is supported and uploads the file to Google Cloud Storage.
-     */
-    @Override
-    public String getImageUrl(MultipartFile multipartFile) {
-        final String fileName = multipartFile.getOriginalFilename();
-        // Check extension of file
-        if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
-            final String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-            String[] allowedExt = {"jpg", "jpeg", "png", "gif"};
-            for (String s : allowedExt) {
-                if (extension.equals(s)) {
-                    init();
-                    try {
-                        return uploadFile(multipartFile);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-//            throw new ServletException("file must be an image");
-        }
-        return null;
-    }
-
-    /**
      * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
      * environment variable, appending a timestamp to end of the uploaded filename.
      */
-    @SuppressWarnings("deprecation")
-    private String uploadFile(MultipartFile multipartFile) throws IOException {
+    @Override
+    public String uploadAndGetMediaLink(MultipartFile multipartFile, String directoryPath) {
+
+        init();
 
         final String fileExtensionInput = getFileExtension(multipartFile);
         final String fileNameInput = multipartFile.getOriginalFilename().split("\\.")[0];
@@ -75,14 +58,25 @@ public class CloudStorageServiceImpl implements CloudStorageService {
         final String fileName = fileNameInput + dtString + "." + fileExtensionInput;
 
         // the InputStream is closed by default, so we don't need to close it here
-        BlobInfo blobInfo =
-                storage.create(
-                        BlobInfo
-                                .newBuilder(bucketName, fileName)
-                                // Modify access list to allow all users with link to read file
-                                .setAcl(new ArrayList<>(Collections.singletonList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
-                                .build(),
-                        multipartFile.getInputStream());
+        BlobInfo blobInfo = null;
+        try {
+            blobInfo = storage.create(
+                    BlobInfo
+                            .newBuilder(bucketName + directoryPath, fileName)
+                            // Modify access list to allow all users with link to read file
+                            .setAcl(new ArrayList<>(Collections.singletonList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
+                            .build(),
+                    multipartFile.getBytes());
+        } catch (IOException e) {
+            LOGGER.info("Throw IOException: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        if (blobInfo == null) {
+            LOGGER.info("Upload file to Google Cloud Storage failed!");
+            return null;
+        }
+
         // return the public download link
         return blobInfo.getMediaLink();
     }
@@ -94,21 +88,25 @@ public class CloudStorageServiceImpl implements CloudStorageService {
         else return "";
     }
 
+    /**
+     * Init Google Cloud Storage with credential
+     */
     private void init() {
         //Check if Active profiles contains "dev"
         if (Arrays.stream(environment.getActiveProfiles()).anyMatch(
                 env -> (env.equalsIgnoreCase("dev")))) {
-            String SERVICE_ACCOUNT_JSON_PATH = "/home/xinhnguyen/Downloads/foodmenulist-255d606b58b9.json";
             try {
+                File file = ResourceUtils.getFile("classpath:" + GoogleCloudStorageConstants.SERVICE_ACCOUNT_KEY);
                 storage =
                         StorageOptions.newBuilder()
                                 .setCredentials(
                                         ServiceAccountCredentials.fromStream(
-                                                new FileInputStream(SERVICE_ACCOUNT_JSON_PATH)))
+                                                new FileInputStream(file)))
                                 .build()
                                 .getService();
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.info("Throw IOException: ");
+                LOGGER.log(Level.SEVERE, e.toString(), e);
             }
         }
         //Check if Active profiles contains "prod"
