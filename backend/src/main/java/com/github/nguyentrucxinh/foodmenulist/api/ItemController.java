@@ -4,6 +4,7 @@ import com.github.nguyentrucxinh.foodmenulist.config.GoogleCloudStorageConstants
 import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.ItemDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Item;
+import com.github.nguyentrucxinh.foodmenulist.service.AppEngineMailApiService;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,9 @@ public class ItemController extends GenericControllerImpl<Item> {
 
     @Autowired
     private GoogleCloudStorageService googleCloudStorageService;
+
+    @Autowired
+    private AppEngineMailApiService appEngineMailApiService;
 
     @PostMapping("/upload/{id}")
     public Item upload(@PathVariable Long id, @RequestParam("file") MultipartFile multipartFile, @RequestParam String name, @RequestParam String description) {
@@ -51,6 +55,8 @@ public class ItemController extends GenericControllerImpl<Item> {
     public Item uploadV2(@PathVariable Long id, @ModelAttribute Item item) {
 
         String imageUrl = googleCloudStorageService.uploadAndGetMediaLink(item.getFile(), GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
+        appEngineMailApiService.sendSimpleMail();
+        appEngineMailApiService.sendMultipartMail(item.getFile());
 
         item.setId(id > 0 ? id : null);
         item.setImageUrl(imageUrl);

@@ -9,6 +9,8 @@
 - Google App Engine 1.9.5x (Deploy Standard)
 - Google Cloud Storage
 - Google Cloud Datastore
+- App Engine Application Logs
+- App Engine Mail API
 - Objectify 5.1.x (ORM)
 
 ## FRONTEND
