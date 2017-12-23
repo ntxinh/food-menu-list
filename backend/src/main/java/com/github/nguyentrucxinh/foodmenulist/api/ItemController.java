@@ -64,7 +64,6 @@ public class ItemController extends GenericControllerImpl<Item> {
         appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
                 .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Ms. Dung").build())
                 .subject("Subject 2")
-                .content("<h1>Content 2<h1>")
                 .contentType("text/html")
                 .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
                 .useTemplate(true)

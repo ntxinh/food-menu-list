@@ -167,7 +167,7 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
             });
 
             msg.setSubject(mailDto.getSubject());
-            msg.setText(mailDto.getContent() + "simple");
+            msg.setText("...");
 
             if (MailType.MULTIPART == mailType) {
                 // [START multipart_example]
