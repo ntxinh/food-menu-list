@@ -48,7 +48,7 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
             msg.setFrom(new InternetAddress("nguyentrucxjnh@gmail.com", "github.com/nguyentrucxinh XinhNguyen"));
             msg.addRecipient(Message.RecipientType.TO,
                     new InternetAddress("tuthithaodung@gmail.com", "Ms. Dung"));
-            msg.setSubject("Your Example.com account has been activated");
+            msg.setSubject("sendSimpleMail");
             msg.setText("This is a test");
             Transport.send(msg);
         } catch (AddressException e) {
@@ -77,7 +77,7 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
             msg.setFrom(new InternetAddress("nguyentrucxjnh@gmail.com", "github.com/nguyentrucxinh XinhNguyen"));
             msg.addRecipient(Message.RecipientType.TO,
                     new InternetAddress("tuthithaodung@gmail.com", "Ms. Dung"));
-            msg.setSubject("Your Example.com account has been activated");
+            msg.setSubject("sendMultipartMail");
             msg.setText(msgBody);
 
             // [START multipart_example]
@@ -125,6 +125,6 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
     @Override
     public void sendMultipartMail(String blobName, Long generation) {
         byte[] content = googleCloudStorageService.readFile(blobName, generation);
-        sendMultipartMail(content, "", "");
+        sendMultipartMail(content, "manual.pdf", "application/pdf");
     }
 }
