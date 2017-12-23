@@ -1,6 +1,8 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
 import com.github.nguyentrucxinh.foodmenulist.service.AppEngineMailApiService;
+import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +34,9 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
 
     private static final Logger LOGGER = Logger.getLogger(AppEngineMailApiServiceImpl.class.getName());
 
+    @Autowired
+    private GoogleCloudStorageService googleCloudStorageService;
+
     @Override
     public void sendSimpleMail() {
         // [START simple_example]
@@ -60,7 +65,8 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
     }
 
     @Override
-    public void sendMultipartMail(MultipartFile multipartFile) {
+    public void sendMultipartMail(byte[] content, String fileName, String contentType) {
+
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
@@ -76,7 +82,7 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
 
             // [START multipart_example]
             String htmlBody = "";          // ...
-            byte[] attachmentData = multipartFile.getBytes();  // ...
+            byte[] attachmentData = content;  // ...
             Multipart mp = new MimeMultipart();
 
             MimeBodyPart htmlPart = new MimeBodyPart();
@@ -85,8 +91,8 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
 
             MimeBodyPart attachment = new MimeBodyPart();
             InputStream attachmentDataStream = new ByteArrayInputStream(attachmentData);
-            attachment.setFileName("manual.pdf"); //multipartFile.getOriginalFilename()
-            attachment.setContent(attachmentDataStream, "application/pdf"); //multipartFile.getContentType()
+            attachment.setFileName(fileName);
+            attachment.setContent(attachmentDataStream, contentType);
             mp.addBodyPart(attachment);
 
             msg.setContent(mp);
@@ -103,9 +109,22 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
         } catch (UnsupportedEncodingException e) {
             LOGGER.info("Throw UnsupportedEncodingException: ");
             LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+    }
+
+    @Override
+    public void sendMultipartMail(MultipartFile multipartFile) {
+        try {
+            sendMultipartMail(multipartFile.getBytes(), multipartFile.getOriginalFilename(), multipartFile.getContentType());
         } catch (IOException e) {
             LOGGER.info("Throw IOException: ");
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    @Override
+    public void sendMultipartMail(String blobName, Long generation) {
+        byte[] content = googleCloudStorageService.readFile(blobName, generation);
+        sendMultipartMail(content, "", "");
     }
 }

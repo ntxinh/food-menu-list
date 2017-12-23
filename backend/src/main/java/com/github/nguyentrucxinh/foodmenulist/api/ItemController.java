@@ -38,6 +38,7 @@ public class ItemController extends GenericControllerImpl<Item> {
         UploadResultDto uploadResultDto = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
         appEngineMailApiService.sendSimpleMail();
         appEngineMailApiService.sendMultipartMail(multipartFile);
+        appEngineMailApiService.sendMultipartMail(uploadResultDto.getBlobName(), uploadResultDto.getGeneration());
 
         Item item;
 
