@@ -1,7 +1,7 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
-import com.github.nguyentrucxinh.foodmenulist.config.GoogleCloudStorageConstants;
-import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
+import com.github.nguyentrucxinh.foodmenulist.common.constants.GoogleCloudStorageConstants;
+import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.ItemDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Item;
 import com.github.nguyentrucxinh.foodmenulist.dto.UploadResultDto;

@@ -1,4 +1,4 @@
-package com.github.nguyentrucxinh.foodmenulist.config;
+package com.github.nguyentrucxinh.foodmenulist.common.constants;
 
 public class SecurityConstants {
     public static final String SECRET = "SecretKeyToGenJWTs";

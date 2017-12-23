@@ -1,6 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.api;
 
-import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
+import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.TaskDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Task;
 import org.springframework.beans.factory.annotation.Autowired;

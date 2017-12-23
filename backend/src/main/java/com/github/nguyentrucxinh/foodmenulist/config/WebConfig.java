@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
+import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

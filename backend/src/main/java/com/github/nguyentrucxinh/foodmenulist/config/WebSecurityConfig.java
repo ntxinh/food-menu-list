@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
+import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

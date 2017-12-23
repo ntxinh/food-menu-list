@@ -1,6 +1,7 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.domain.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

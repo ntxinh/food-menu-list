@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
+import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
