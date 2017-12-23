@@ -4,12 +4,13 @@ import com.github.nguyentrucxinh.foodmenulist.config.GoogleCloudStorageConstants
 import com.github.nguyentrucxinh.foodmenulist.config.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.dao.ItemDao;
 import com.github.nguyentrucxinh.foodmenulist.domain.Item;
-import com.github.nguyentrucxinh.foodmenulist.service.CloudStorageService;
+import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping({
@@ -18,16 +19,18 @@ import java.util.Date;
 })
 public class ItemController extends GenericControllerImpl<Item> {
 
+    private static final Logger LOGGER = Logger.getLogger(ItemController.class.getName());
+
     @Autowired
     private ItemDao itemDao;
 
     @Autowired
-    private CloudStorageService cloudStorageService;
+    private GoogleCloudStorageService googleCloudStorageService;
 
     @PostMapping("/upload/{id}")
     public Item upload(@PathVariable Long id, @RequestParam("file") MultipartFile multipartFile, @RequestParam String name, @RequestParam String description) {
 
-        String imageUrl = cloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
+        String imageUrl = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
 
         Item item;
 
@@ -47,11 +50,13 @@ public class ItemController extends GenericControllerImpl<Item> {
     @PostMapping("/upload-v2/{id}")
     public Item uploadV2(@PathVariable Long id, @ModelAttribute Item item) {
 
-        String imageUrl = cloudStorageService.uploadAndGetMediaLink(item.getFile(), GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
+        String imageUrl = googleCloudStorageService.uploadAndGetMediaLink(item.getFile(), GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
 
         item.setId(id > 0 ? id : null);
         item.setImageUrl(imageUrl);
         item.setCreatedDate(new Date());
+
+        LOGGER.info(item.toString() + " saving...");
 
         return itemDao.save(item);
     }

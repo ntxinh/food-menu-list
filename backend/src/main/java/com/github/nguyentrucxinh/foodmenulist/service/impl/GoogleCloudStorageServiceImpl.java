@@ -1,6 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
-import com.github.nguyentrucxinh.foodmenulist.service.CloudStorageService;
+import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.BlobInfo;
@@ -27,9 +27,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class CloudStorageServiceImpl implements CloudStorageService {
+public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService {
 
-    private static final Logger LOGGER = Logger.getLogger(CloudStorageServiceImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GoogleCloudStorageServiceImpl.class.getName());
 
     @Autowired
     private Environment environment;
@@ -75,9 +75,11 @@ public class CloudStorageServiceImpl implements CloudStorageService {
         }
 
         if (blobInfo == null) {
-            LOGGER.info("Upload file to Google Cloud Storage failed!");
+            LOGGER.info("Upload " + fileName + " to " + directoryPath + " failed!");
             return null;
         }
+
+        LOGGER.info("Upload " + fileName + " to " + directoryPath + "completed!");
 
         // return the public download link
         return blobInfo.getMediaLink();

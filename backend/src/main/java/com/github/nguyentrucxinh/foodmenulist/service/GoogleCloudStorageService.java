@@ -2,7 +2,7 @@ package com.github.nguyentrucxinh.foodmenulist.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public interface CloudStorageService {
+public interface GoogleCloudStorageService {
 
     String uploadAndGetMediaLink(MultipartFile multipartFile, String directoryPath);
 }
