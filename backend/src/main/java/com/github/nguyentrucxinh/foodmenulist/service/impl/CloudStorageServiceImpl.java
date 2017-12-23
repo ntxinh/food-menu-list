@@ -1,6 +1,5 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
-import com.github.nguyentrucxinh.foodmenulist.config.GoogleCloudStorageConstants;
 import com.github.nguyentrucxinh.foodmenulist.service.CloudStorageService;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.storage.Acl;
