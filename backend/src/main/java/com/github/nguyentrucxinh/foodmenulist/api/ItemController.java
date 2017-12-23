@@ -50,9 +50,7 @@ public class ItemController extends GenericControllerImpl<Item> {
 
         String imageUrl = cloudStorageService.uploadAndGetMediaLink(item.getFile(), GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
 
-        if (id > 0)
-            item.setId(id);
-
+        item.setId(id > 0 ? id : null);
         item.setImageUrl(imageUrl);
         item.setCreatedDate(new Date());
 

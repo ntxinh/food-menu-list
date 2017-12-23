@@ -6,6 +6,8 @@ security:
   filter-order: 2
 
 google-cloud-platform:
+  service-account:
+    file-name: foodmenulist-255d606b58b9.json
   google-cloud-storage:
     bucket-name: foodmenulist.appspot.com
 ---

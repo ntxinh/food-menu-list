@@ -40,6 +40,9 @@ public class CloudStorageServiceImpl implements CloudStorageService {
     @Value("${google-cloud-platform.google-cloud-storage.bucket-name}")
     private String bucketName;
 
+    @Value("${google-cloud-platform.service-account.file-name}")
+    private String serviceAccountFileName;
+
     /**
      * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
      * environment variable, appending a timestamp to end of the uploaded filename.
@@ -62,7 +65,7 @@ public class CloudStorageServiceImpl implements CloudStorageService {
         try {
             blobInfo = storage.create(
                     BlobInfo
-                            .newBuilder(bucketName + directoryPath, fileName)
+                            .newBuilder(bucketName, directoryPath + fileName)
                             // Modify access list to allow all users with link to read file
                             .setAcl(new ArrayList<>(Collections.singletonList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER))))
                             .build(),
@@ -96,7 +99,7 @@ public class CloudStorageServiceImpl implements CloudStorageService {
         if (Arrays.stream(environment.getActiveProfiles()).anyMatch(
                 env -> (env.equalsIgnoreCase("dev")))) {
             try {
-                File file = ResourceUtils.getFile("classpath:" + GoogleCloudStorageConstants.SERVICE_ACCOUNT_KEY);
+                File file = ResourceUtils.getFile("classpath:" + serviceAccountFileName);
                 storage =
                         StorageOptions.newBuilder()
                                 .setCredentials(
