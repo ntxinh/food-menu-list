@@ -10,5 +10,5 @@ public interface GenericService<E> {
 
     E save(E t);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }

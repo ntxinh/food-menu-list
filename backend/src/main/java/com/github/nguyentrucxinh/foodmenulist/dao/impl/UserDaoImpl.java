@@ -15,6 +15,6 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     public User findByUsername(String username) {
 //        User user = ofy().load().type(User.class).filter("username", username).first().now();
         List<User> users = ofy().load().type(User.class).list();
-        return users.stream().filter(o -> o.getUsername().equals(username) && o.isEnable()).findFirst().get();
+        return users.stream().filter(o -> o.getUsername().equals(username)).findAny().orElse(null);
     }
 }

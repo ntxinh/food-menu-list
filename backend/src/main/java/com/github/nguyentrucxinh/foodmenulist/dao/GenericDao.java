@@ -10,6 +10,6 @@ public interface GenericDao<E> {
 
     E save(E t);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }
 

@@ -38,7 +38,7 @@ public abstract class GenericControllerImpl<E> implements GenericController<E> {
 
     @DeleteMapping("/{id}")
     @Override
-    public void delete(@PathVariable Long id) {
-        genericDao.delete(id);
+    public void deleteById(@PathVariable Long id) {
+        genericDao.deleteById(id);
     }
 }

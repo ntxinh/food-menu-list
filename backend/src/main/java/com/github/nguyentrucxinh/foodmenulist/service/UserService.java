@@ -5,4 +5,6 @@ import com.github.nguyentrucxinh.foodmenulist.domain.User;
 public interface UserService extends GenericService<User> {
 
     void signUp(User user);
+
+    void confirmMailSignUp(String token);
 }

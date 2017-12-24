@@ -12,5 +12,5 @@ public interface GenericController<E> {
 
     E update(Long id, E t);
 
-    void delete(Long id);
+    void deleteById(Long id);
 }

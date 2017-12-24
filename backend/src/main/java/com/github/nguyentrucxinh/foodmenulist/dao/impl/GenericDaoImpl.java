@@ -50,7 +50,7 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         E t = ofy().load().type(getEntityClass()).id(id).now();
         ofy().delete().entity(t).now();
     }
