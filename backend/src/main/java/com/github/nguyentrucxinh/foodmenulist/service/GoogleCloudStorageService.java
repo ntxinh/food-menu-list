@@ -10,6 +10,8 @@ public interface GoogleCloudStorageService {
 
     Blob readFile(BlobId blobId);
 
+    Blob readFile(String bucket, String name, Long generation);
+
     void createBlob();
 
     void updateBlob();
