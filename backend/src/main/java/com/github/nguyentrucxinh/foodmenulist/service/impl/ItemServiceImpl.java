@@ -10,6 +10,7 @@ import com.github.nguyentrucxinh.foodmenulist.dto.*;
 import com.github.nguyentrucxinh.foodmenulist.service.AppEngineMailApiService;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import com.github.nguyentrucxinh.foodmenulist.service.ItemService;
+import com.google.cloud.storage.Blob;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,16 +60,18 @@ public class ItemServiceImpl implements ItemService {
     public Item save(Long id, MultipartFile multipartFile, String name, String description) {
         UploadResultDto uploadResultDto = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
 
+        // Simple
         appEngineMailApiService.sendMail(MailType.SIMPLE, MailDto.builder()
-                .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Ms. Dung").build())
+                .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
                 .subject("Subject 1")
                 .content("Content 1")
                 .build()
         );
 
+        // MultipartFile
         try {
             appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
-                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Ms. Dung").build())
+                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
                     .subject("Subject 2")
                     .content("<h1>Content 2<h1>")
                     .contentType("text/html")
@@ -80,9 +83,10 @@ public class ItemServiceImpl implements ItemService {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
+        // MultipartFile with template
         try {
             appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
-                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Ms. Dung").build())
+                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
                     .subject("Subject 2")
                     .contentType("text/html")
                     .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
@@ -96,6 +100,18 @@ public class ItemServiceImpl implements ItemService {
             LOGGER.info("Throw IOException: ");
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+
+        // Blob
+        Blob blob = googleCloudStorageService.readFile(uploadResultDto.getBlobId());
+
+        appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
+                .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
+                .subject("Subject 2")
+                .content("<h1>Content 2<h1>")
+                .contentType("text/html")
+                .fileAttachmentDto(FileAttachmentDto.builder().fileName(blob.getName()).content(blob.getContent(Blob.BlobSourceOption.generationMatch())).contentType(blob.getContentType()).build())
+                .build()
+        );
 
         Item item;
 

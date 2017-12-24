@@ -6,6 +6,8 @@ import com.github.nguyentrucxinh.foodmenulist.dto.MailDto;
 import com.github.nguyentrucxinh.foodmenulist.service.AppEngineMailApiService;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import com.github.nguyentrucxinh.foodmenulist.service.TemplateService;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,9 +39,6 @@ import javax.mail.internet.MimeMultipart;
 public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
 
     private static final Logger LOGGER = Logger.getLogger(AppEngineMailApiServiceImpl.class.getName());
-
-    @Autowired
-    private GoogleCloudStorageService googleCloudStorageService;
 
     @Autowired
     private TemplateService templateService;
@@ -130,9 +129,8 @@ public class AppEngineMailApiServiceImpl implements AppEngineMailApiService {
     }
 
     @Override
-    public void sendMultipartMail(String blobName, Long generation) {
-        byte[] content = googleCloudStorageService.readFile(blobName, generation);
-        sendMultipartMail(content, "manual.pdf", "application/pdf");
+    public void sendMultipartMail(Blob blob) {
+        sendMultipartMail(blob.getContent(Blob.BlobSourceOption.generationMatch()), blob.getName(), blob.getContentType());
     }
 
     @Override

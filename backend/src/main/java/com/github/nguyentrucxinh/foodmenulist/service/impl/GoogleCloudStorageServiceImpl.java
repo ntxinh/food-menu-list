@@ -130,11 +130,8 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
     }
 
     @Override
-    public byte[] readFile(String blobName, Long generation) {
-        BlobId blobId = BlobId.of(bucketName, blobName, generation);
-        Blob blob = storage.get(blobId);
-        return blob.getContent();
-//        return blob.getContent(Blob.BlobSourceOption.generationMatch());
+    public Blob readFile(BlobId blobId) {
+        return storage.get(blobId);
     }
 
     @Override
