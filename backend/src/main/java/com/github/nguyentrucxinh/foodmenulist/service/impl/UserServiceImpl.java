@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Service
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signUp(User user) {
+    public Map<String, String> signUp(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnable(false);
         User userSaved = userDao.save(user);
@@ -91,13 +92,24 @@ public class UserServiceImpl implements UserService {
                 )).build())
                 .build()
         );
+
+        return ImmutableMap.of(
+                "title", "Confirmation email sent.",
+                "content", "Please check your email and confirm your email address.",
+                "link", "Just show for testing: " + domainName + path + token
+        );
     }
 
     @Override
-    public void confirmMailSignUp(String token) {
+    public Map<String, String> confirmMailSignUp(String token) {
         String username = JwtsUtils.parseToken(token);
         User user = userDao.findByUsername(username);
         user.setEnable(true);
         userDao.save(user);
+
+        return ImmutableMap.of(
+                "title", "Account Confirmation.",
+                "content", "Thank you for confirming your account."
+        );
     }
 }

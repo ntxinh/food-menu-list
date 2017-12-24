@@ -2,9 +2,11 @@ package com.github.nguyentrucxinh.foodmenulist.service;
 
 import com.github.nguyentrucxinh.foodmenulist.domain.User;
 
+import java.util.Map;
+
 public interface UserService extends GenericService<User> {
 
-    void signUp(User user);
+    Map<String, String> signUp(User user);
 
-    void confirmMailSignUp(String token);
+    Map<String, String> confirmMailSignUp(String token);
 }

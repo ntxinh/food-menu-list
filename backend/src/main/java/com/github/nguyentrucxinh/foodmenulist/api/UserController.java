@@ -5,6 +5,8 @@ import com.github.nguyentrucxinh.foodmenulist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/users")
 public class UserController extends GenericControllerImpl<User> {
@@ -13,14 +15,14 @@ public class UserController extends GenericControllerImpl<User> {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public void signUp(@RequestBody User user) {
+    public Map<String, String> signUp(@RequestBody User user) {
 
-        userService.signUp(user);
+        return userService.signUp(user);
     }
 
     @GetMapping("/confirm-mail-sign-up")
-    public void signUp(@RequestParam String token) {
+    public Map<String, String> signUp(@RequestParam String token) {
 
-        userService.confirmMailSignUp(token);
+        return userService.confirmMailSignUp(token);
     }
 }
