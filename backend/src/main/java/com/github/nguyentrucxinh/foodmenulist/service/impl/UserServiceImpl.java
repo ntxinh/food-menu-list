@@ -65,13 +65,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, String> signUp(User user) {
+    public Map<String, String> signUp(User user, String role) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnable(false);
         User userSaved = userDao.save(user);
 
         Authority authority = new Authority();
-        authority.setAuthority("ROLE_ADMIN");
+        authority.setAuthority(role);
         authority.setUser(Ref.create(userSaved));
         authorityDao.save(authority);
 

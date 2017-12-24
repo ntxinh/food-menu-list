@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface UserService extends GenericService<User> {
 
-    Map<String, String> signUp(User user);
+    Map<String, String> signUp(User user, String role);
 
     Map<String, String> confirmMailSignUp(String token);
 }
