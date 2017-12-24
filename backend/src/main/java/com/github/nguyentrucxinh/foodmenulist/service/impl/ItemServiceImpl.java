@@ -60,56 +60,56 @@ public class ItemServiceImpl implements ItemService {
     public Item save(Long id, MultipartFile multipartFile, String name, String description) {
         Blob blob = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
 
-//        // Simple
-//        appEngineMailApiService.sendMail(MailType.SIMPLE, MailDto.builder()
-//                .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
-//                .subject("Subject 1")
-//                .content("Content 1")
-//                .build()
-//        );
-//
-//        // MultipartFile
-//        try {
-//            appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
-//                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
-//                    .subject("Subject 2")
-//                    .content("<h1>Content 2<h1>")
-//                    .contentType("text/html")
-//                    .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
-//                    .build()
-//            );
-//        } catch (IOException e) {
-//            LOGGER.info("Throw IOException: ");
-//            LOGGER.log(Level.SEVERE, e.toString(), e);
-//        }
-//
-//        // MultipartFile with template
-//        try {
-//            appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
-//                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
-//                    .subject("Subject 2")
-//                    .contentType("text/html")
-//                    .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
-//                    .useTemplate(true)
-//                    .templateDto(TemplateDto.builder().templateName("confirm-mail-sign-up.ftl").dataModel(ImmutableMap.of(
-//                            "message", "Hello world!"
-//                    )).build())
-//                    .build()
-//            );
-//        } catch (IOException e) {
-//            LOGGER.info("Throw IOException: ");
-//            LOGGER.log(Level.SEVERE, e.toString(), e);
-//        }
-//
-//        // Blob
-//        appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
-//                .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
-//                .subject("Subject 2")
-//                .content("<h1>Content 2<h1>")
-//                .contentType("text/html")
-//                .fileAttachmentDto(FileAttachmentDto.builder().fileName(blob.getName()).content(blob.getContent(Blob.BlobSourceOption.generationMatch())).contentType(blob.getContentType()).build())
-//                .build()
-//        );
+        // Simple
+        appEngineMailApiService.sendMail(MailType.SIMPLE, MailDto.builder()
+                .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
+                .subject("Subject 1")
+                .content("Content 1")
+                .build()
+        );
+
+        // MultipartFile
+        try {
+            appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
+                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
+                    .subject("Subject 2")
+                    .content("<h1>Content 2<h1>")
+                    .contentType("text/html")
+                    .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
+                    .build()
+            );
+        } catch (IOException e) {
+            LOGGER.info("Throw IOException: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        // MultipartFile with template
+        try {
+            appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
+                    .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
+                    .subject("Subject 2")
+                    .contentType("text/html")
+                    .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
+                    .useTemplate(true)
+                    .templateDto(TemplateDto.builder().templateName("confirm-mail-sign-up.ftl").dataModel(ImmutableMap.of(
+                            "message", "Hello world!"
+                    )).build())
+                    .build()
+            );
+        } catch (IOException e) {
+            LOGGER.info("Throw IOException: ");
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+
+        // Blob
+        appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
+                .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
+                .subject("Subject 2")
+                .content("<h1>Content 2<h1>")
+                .contentType("text/html")
+                .fileAttachmentDto(FileAttachmentDto.builder().fileName(blob.getName()).content(blob.getContent(Blob.BlobSourceOption.generationMatch())).contentType(blob.getContentType()).build())
+                .build()
+        );
 
         Item item;
 
