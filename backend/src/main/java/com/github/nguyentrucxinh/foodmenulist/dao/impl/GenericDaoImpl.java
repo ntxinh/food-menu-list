@@ -3,14 +3,12 @@ package com.github.nguyentrucxinh.foodmenulist.dao.impl;
 import com.github.nguyentrucxinh.foodmenulist.dao.GenericDao;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Result;
-import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-@Repository
 public abstract class GenericDaoImpl<E> implements GenericDao<E> {
 
     /* CLASS */
