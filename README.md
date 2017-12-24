@@ -11,6 +11,8 @@
 - App Engine Application Logs (100 megabytes, 5 gigabytes Log data kept for a maximum of 7 days.)
 - App Engine Mail API (10 calls, 10 messages, ...)
 - Objectify 5.1.x (ORM)
+- JWT 0.7.x
+- Freemarker
 
 ## FRONTEND
 - Angular 4
