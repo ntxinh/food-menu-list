@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated()
                 .antMatchers(HttpMethod.POST, SecurityConstants.LOG_IN_URL).permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.POST, SecurityConstants.CONFIRM_MAIL_SIGN_UP_URL).permitAll()
                 .antMatchers(SecurityConstants.API_USER_URL + "/**").permitAll()
                 .antMatchers(SecurityConstants.API_ADMIN_URL + "/**").authenticated()
                 .anyRequest().permitAll()
