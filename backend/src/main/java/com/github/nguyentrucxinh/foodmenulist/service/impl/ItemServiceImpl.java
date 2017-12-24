@@ -90,7 +90,7 @@ public class ItemServiceImpl implements ItemService {
                     .contentType("text/html")
                     .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
                     .useTemplate(true)
-                    .templateDto(TemplateDto.builder().templateName("sign-up.ftl").dataModel(ImmutableMap.of(
+                    .templateDto(TemplateDto.builder().templateName("confirm-mail-sign-up.ftl").dataModel(ImmutableMap.of(
                             "message", "Hello world!"
                     )).build())
                     .build()
