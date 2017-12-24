@@ -14,7 +14,7 @@ import java.io.IOException;
         SecurityConstants.API_ADMIN_URL + "/items",
         SecurityConstants.API_USER_URL + "/items"
 })
-public class ItemController extends GenericControllerImpl<Item> {
+public class ItemEndpoint extends GenericEndpointImpl<Item> {
 
     @Autowired
     private ItemService itemService;

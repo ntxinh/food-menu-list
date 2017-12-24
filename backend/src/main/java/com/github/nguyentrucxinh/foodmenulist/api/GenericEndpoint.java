@@ -2,7 +2,7 @@ package com.github.nguyentrucxinh.foodmenulist.api;
 
 import java.util.List;
 
-public interface GenericController<E> {
+public interface GenericEndpoint<E> {
 
     List<E> findAll();
 

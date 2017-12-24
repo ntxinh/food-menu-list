@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(SecurityConstants.API_USER_URL + "/cards")
-public class CardController extends GenericControllerImpl<Card> {
+public class CardEndpoint extends GenericEndpointImpl<Card> {
 }

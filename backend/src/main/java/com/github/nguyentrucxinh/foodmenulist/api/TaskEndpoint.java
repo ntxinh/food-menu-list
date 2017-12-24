@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(SecurityConstants.API_ADMIN_URL + "/tasks")
-public class TaskController extends GenericControllerImpl<Task> {
+public class TaskEndpoint extends GenericEndpointImpl<Task> {
 }
