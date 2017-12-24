@@ -5,11 +5,11 @@
 - Spring Boot 1.5.x
 - Maven 3.5.x
 - Lombok
-- Google App Engine 1.9.5x (Deploy Standard)
-- Google Cloud Storage
-- Google Cloud Datastore
-- App Engine Application Logs
-- App Engine Mail API
+- Google App Engine 1.9.5x (Deploy Standard, Maximum 15 services [Pricing](https://cloud.google.com/appengine/pricing) [Quota](https://cloud.google.com/appengine/quotas)) 
+- Google Cloud Storage (5 GB-months [Pricing](https://cloud.google.com/storage/pricing) [Quota](https://cloud.google.com/storage/quotas))
+- Google Cloud Datastore (1 GB storage per day [Pricing & Quota](https://cloud.google.com/datastore/pricing))
+- App Engine Application Logs (100 megabytes, 5 gigabytes Log data kept for a maximum of 7 days.)
+- App Engine Mail API (10 calls, 10 messages, ...)
 - Objectify 5.1.x (ORM)
 
 ## FRONTEND
