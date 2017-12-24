@@ -15,7 +15,17 @@ google-cloud-platform:
 spring:
   profiles: dev
 
+google-cloud-platform:
+  app-engine:
+    mail-api:
+      domain-name: http://localhost:8080
+
 ---
 
 spring:
   profiles: prod
+
+google-cloud-platform:
+  app-engine:
+    mail-api:
+      domain-name: http://api-dot-foodmenulist.appspot.com

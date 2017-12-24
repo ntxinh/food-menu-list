@@ -15,6 +15,7 @@ import com.github.nguyentrucxinh.foodmenulist.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import com.googlecode.objectify.Ref;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AppEngineMailApiService appEngineMailApiService;
+
+    @Value("${google-cloud-platform.app-engine.mail-api.domain-name}")
+    private String domainName;
 
     @Override
     public List<User> findAll() {
@@ -72,10 +76,9 @@ public class UserServiceImpl implements UserService {
         // Send mail
         String token = JwtsUtils.createToken(user.getUsername());
 
-        String host = "http://api-dot-foodmenulist.appspot.com";
         String path = "/users/confirm-mail-sign-up?token=";
 
-        LOGGER.info("Url confirm mail sign up: " + host + path + token);
+        LOGGER.info("Url confirm mail sign up: " + domainName + path + token);
 
         appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
                 .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
@@ -84,7 +87,7 @@ public class UserServiceImpl implements UserService {
                 .useTemplate(true)
                 .templateDto(TemplateDto.builder().templateName("confirm-mail-sign-up.ftl").dataModel(ImmutableMap.of(
                         "username", user.getUsername(),
-                        "url", host + path + token
+                        "url", domainName + path + token
                 )).build())
                 .build()
         );
