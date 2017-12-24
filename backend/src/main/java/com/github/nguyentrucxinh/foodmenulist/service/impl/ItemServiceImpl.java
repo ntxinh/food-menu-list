@@ -58,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item save(Long id, MultipartFile multipartFile, String name, String description) {
-        UploadResultDto uploadResultDto = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
+        Blob blob = googleCloudStorageService.uploadAndGetMediaLink(multipartFile, GoogleCloudStorageConstants.BUCKET_DIRECTORY_IMAGE);
 
         // Simple
         appEngineMailApiService.sendMail(MailType.SIMPLE, MailDto.builder()
@@ -102,8 +102,6 @@ public class ItemServiceImpl implements ItemService {
         }
 
         // Blob
-        Blob blob = googleCloudStorageService.readFile(uploadResultDto.getBlobId());
-
         appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
                 .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Mr. Xinh").build())
                 .subject("Subject 2")
@@ -122,9 +120,9 @@ public class ItemServiceImpl implements ItemService {
 
         item.setName(name);
         item.setDescription(description);
-        item.setImageUrl(uploadResultDto.getMediaLink());
+        item.setImageUrl(blob.getMediaLink());
         item.setCreatedDate(new Date());
-        item.setBlobId(uploadResultDto.getBlobId());
+        item.setBlobId(blob.getBlobId());
 
         LOGGER.info(item.toString() + " saving...");
 

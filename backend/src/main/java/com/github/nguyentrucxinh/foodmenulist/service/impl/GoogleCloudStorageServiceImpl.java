@@ -1,6 +1,5 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
-import com.github.nguyentrucxinh.foodmenulist.dto.UploadResultDto;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.storage.*;
@@ -49,7 +48,7 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
      * environment variable, appending a timestamp to end of the uploaded filename.
      */
     @Override
-    public UploadResultDto uploadAndGetMediaLink(MultipartFile multipartFile, String directoryPath) {
+    public Blob uploadAndGetMediaLink(MultipartFile multipartFile, String directoryPath) {
 
         init();
 
@@ -83,15 +82,9 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
 
         LOGGER.info("Upload " + fileName + " to " + directoryPath + "completed!");
 
-        // Blob
+        // Return Blob
         BlobId blobId = blobInfo.getBlobId();
-        Blob blob = storage.get(blobId);
-
-        // Return
-        return UploadResultDto.builder()
-                .mediaLink(blobInfo.getMediaLink())
-                .blobId(BlobId.of(bucketName, blob.getName(), blob.getGeneration()))
-                .build();
+        return storage.get(blobId);
     }
 
     private String getFileExtension(MultipartFile multipartFile) {
