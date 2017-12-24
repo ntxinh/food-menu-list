@@ -2,6 +2,7 @@ package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
 import com.github.nguyentrucxinh.foodmenulist.common.constants.MailType;
 import com.github.nguyentrucxinh.foodmenulist.common.constants.RecipientType;
+import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
 import com.github.nguyentrucxinh.foodmenulist.common.utils.JwtsUtils;
 import com.github.nguyentrucxinh.foodmenulist.dao.AuthorityDao;
 import com.github.nguyentrucxinh.foodmenulist.dao.UserDao;
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService {
         // Send mail
         String token = JwtsUtils.createToken(user.getUsername());
 
-        String path = "/users/confirm-mail-sign-up?token=";
+        String path = SecurityConstants.CONFIRM_MAIL_SIGN_UP_URL + "?token=";
 
         LOGGER.info("Url confirm mail sign up: " + domainName + path + token);
 
