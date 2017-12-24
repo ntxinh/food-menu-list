@@ -1,6 +1,5 @@
 package com.github.nguyentrucxinh.foodmenulist.service.impl;
 
-import com.github.nguyentrucxinh.foodmenulist.api.ItemController;
 import com.github.nguyentrucxinh.foodmenulist.common.constants.GoogleCloudStorageConstants;
 import com.github.nguyentrucxinh.foodmenulist.common.constants.MailType;
 import com.github.nguyentrucxinh.foodmenulist.common.constants.RecipientType;
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    private static final Logger LOGGER = Logger.getLogger(ItemController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ItemServiceImpl.class.getName());
 
     @Autowired
     private ItemDao itemDao;
