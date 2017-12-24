@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         // Send mail
         String token = JwtsUtils.createToken(user.getUsername());
 
-        String host = "http://localhost:8080";
+        String host = "http://api-dot-foodmenulist.appspot.com";
         String path = "/users/confirm-mail-sign-up?token=";
 
         LOGGER.info("Url confirm mail sign up: " + host + path + token);

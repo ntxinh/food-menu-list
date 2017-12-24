@@ -97,6 +97,67 @@ $ gcloud app deploy
 - Note: If you don't see the change, try refresh browser with `Shift + F5` or `Ctrl + F5` or `Ctrl + R`
 
 ---
+# APIs
+- Helloworld 
+   + /
+
+- Home 
+   + /user/hello 
+   + /admin/hello
+
+- Card (CRUD)
+   + /api/user/cards
+
+- Contact (CRUD)
+   + /api/admin/contacts
+
+- Task (CRUD)
+   + /api/admin/tasks
+   
+- Item (CRUD)
+   + /api/user/items 
+   + /api/admin/items
+   + /api/admin/items/upload/{id}
+   + /api/user/items/upload/{id}
+```bash
+curl -X POST \
+  https://api-dot-foodmenulist.appspot.com/api/user/items/upload/0 \
+  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
+  -F 'file=@/home/xinhnguyen/Downloads/YOUR_PHOTO.jpg' \
+  -F 'name=Name 1' \
+  -F 'description=Description 1'
+```
+
+- User (CRUD)
+  + /users/sign-up 
+```bash
+curl -X POST \
+  https://api-dot-foodmenulist.appspot.com/users/sign-up \
+  -H 'content-type: application/json' \
+  -d '{
+    "username": "admin",
+    "password": "password"
+}'
+```
+
+  + /users/confirm-mail-sign-up
+```bash
+curl -X GET \
+  'https://api-dot-foodmenulist.appspot.com/users/confirm-mail-sign-up?token=YOUR_TOKEN'
+```
+
+  + /login
+```bash
+curl -X POST \
+  http://api-dot-foodmenulist.appspot.com/login \
+  -H 'content-type: application/json' \
+  -d '{
+    "username": "admin",
+    "password": "password"
+}'
+```
+
+---
 # DEMO
 - User Portal:    http://foodmenulist.appspot.com
 - Admin Portal:   http://admin-dot-foodmenulist.appspot.com
