@@ -3,11 +3,9 @@ package com.github.nguyentrucxinh.foodmenulist.service.impl;
 import com.github.nguyentrucxinh.foodmenulist.dao.GenericDao;
 import com.github.nguyentrucxinh.foodmenulist.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class GenericServiceImpl<E> implements GenericService<E> {
 
     @Autowired
