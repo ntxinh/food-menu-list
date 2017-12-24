@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.domain;
 
+import com.google.cloud.storage.BlobId;
 import com.googlecode.objectify.annotation.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,5 @@ public class Item extends BaseEntity {
     private String imageUrl;
     private Date createdDate;
 
-    private String blobName;
-    private Long generation;
+    private BlobId blobId;
 }

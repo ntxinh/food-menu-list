@@ -1,5 +1,6 @@
 package com.github.nguyentrucxinh.foodmenulist.dto;
 
+import com.google.cloud.storage.BlobId;
 import lombok.Builder;
 import lombok.Value;
 
@@ -7,6 +8,5 @@ import lombok.Value;
 @Value
 public class UploadResultDto {
     private String mediaLink;
-    private String blobName;
-    private Long generation;
+    private BlobId blobId;
 }

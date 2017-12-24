@@ -10,15 +10,14 @@ import com.github.nguyentrucxinh.foodmenulist.dto.*;
 import com.github.nguyentrucxinh.foodmenulist.service.AppEngineMailApiService;
 import com.github.nguyentrucxinh.foodmenulist.service.GoogleCloudStorageService;
 import com.github.nguyentrucxinh.foodmenulist.service.ItemService;
+import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,9 +80,6 @@ public class ItemServiceImpl implements ItemService {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
 
-        Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("message", "Hello world!");
-
         try {
             appEngineMailApiService.sendMail(MailType.MULTIPART, MailDto.builder()
                     .recipientDto(RecipientDto.builder().recipientType(RecipientType.TO).address("nguyentrucxjnh@gmail.com").personal("Ms. Dung").build())
@@ -91,7 +87,9 @@ public class ItemServiceImpl implements ItemService {
                     .contentType("text/html")
                     .fileAttachmentDto(FileAttachmentDto.builder().fileName(multipartFile.getOriginalFilename()).content(multipartFile.getBytes()).contentType(multipartFile.getContentType()).build())
                     .useTemplate(true)
-                    .templateDto(TemplateDto.builder().templateName("sign-up.ftl").dataModel(dataModel).build())
+                    .templateDto(TemplateDto.builder().templateName("sign-up.ftl").dataModel(ImmutableMap.of(
+                            "message", "Hello world!"
+                    )).build())
                     .build()
             );
         } catch (IOException e) {
@@ -110,8 +108,7 @@ public class ItemServiceImpl implements ItemService {
         item.setDescription(description);
         item.setImageUrl(uploadResultDto.getMediaLink());
         item.setCreatedDate(new Date());
-        item.setBlobName(uploadResultDto.getBlobName());
-        item.setGeneration(uploadResultDto.getGeneration());
+        item.setBlobId(uploadResultDto.getBlobId());
 
         LOGGER.info(item.toString() + " saving...");
 

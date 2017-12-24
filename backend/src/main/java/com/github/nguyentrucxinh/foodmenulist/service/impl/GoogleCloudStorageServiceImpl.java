@@ -90,8 +90,7 @@ public class GoogleCloudStorageServiceImpl implements GoogleCloudStorageService 
         // Return
         return UploadResultDto.builder()
                 .mediaLink(blobInfo.getMediaLink())
-                .blobName(blob.getName())
-                .generation(blob.getGeneration())
+                .blobId(BlobId.of(bucketName, blob.getName(), blob.getGeneration()))
                 .build();
     }
 
