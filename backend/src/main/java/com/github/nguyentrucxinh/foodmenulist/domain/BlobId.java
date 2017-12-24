@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class BlobId extends BaseEntity{
+public class BlobId extends BaseEntity {
 
     private String bucket;
     private String name;
