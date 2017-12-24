@@ -64,7 +64,7 @@ $ npm run build-prod
 
 - Deploy:
 ```bash
-$ cd /food-menu-list/frontend/deploy_user
+$ cd /food-menu-list/frontend/user_deploy
 $ gcloud app deploy
 ```
 
@@ -90,7 +90,7 @@ $ npm run build-prod
 
 - Deploy:
 ```bash
-$ cd /food-menu-list/frontend/deploy_admin
+$ cd /food-menu-list/frontend/admin_deploy
 $ gcloud app deploy
 ```
 

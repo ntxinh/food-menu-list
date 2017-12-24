@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
   }
 
   findAll(): void {
-    this.http.get(`${environment.apiUrl}/api/items`)
+    this.http.get(`${environment.apiUrl}/api/user/items`)
       .map((response: Response) => response.json())
       .subscribe(
         (success: any) => {
@@ -50,7 +50,7 @@ export class FormComponent implements OnInit {
       formData.append("description", this.item.description);
       formData.append("file", this.getFileList()[0]);
 
-      this.http.post(`${environment.apiUrl}/api/items/upload/0`, formData)
+      this.http.post(`${environment.apiUrl}/api/user/items/upload/0`, formData)
         .map((response: Response) => response.json())
         .subscribe(
           (success: any) => {

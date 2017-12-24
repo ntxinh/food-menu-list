@@ -21,7 +21,7 @@ export class GalleryComponent implements OnInit {
   }
 
   findByAll() {
-    this.http.get(`${environment.apiUrl}/api/items`)
+    this.http.get(`${environment.apiUrl}/api/user/items`)
       .map((response: Response) =>response.json())
       .subscribe(
         (success: any) => {
