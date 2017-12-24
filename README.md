@@ -1,4 +1,3 @@
----
 # STACK
 
 ## BACKEND
@@ -113,7 +112,10 @@ $ gcloud app deploy
 
 - Task (CRUD)
    + /api/admin/tasks
-   
+
+- User (CRUD)
+   + /api/admin/users
+
 - Item (CRUD)
    + /api/user/items 
    + /api/admin/items
@@ -128,11 +130,22 @@ curl -X POST \
   -F 'description=Description 1'
 ```
 
-- User (CRUD)
-  + /users/sign-up 
+- Auth
+  + /sign-up 
 ```bash
 curl -X POST \
   https://api-dot-foodmenulist.appspot.com/users/sign-up \
+  -H 'content-type: application/json' \
+  -d '{
+    "username": "user",
+    "password": "password"
+}'
+```
+
+ + /sign-up-admin
+```bash
+curl -X POST \
+  https://api-dot-foodmenulist.appspot.com/users/sign-up-admin \
   -H 'content-type: application/json' \
   -d '{
     "username": "admin",
@@ -140,7 +153,7 @@ curl -X POST \
 }'
 ```
 
-  + /users/confirm-mail-sign-up
+  + /confirm-mail-sign-up
 ```bash
 curl -X GET \
   'https://api-dot-foodmenulist.appspot.com/users/confirm-mail-sign-up?token=YOUR_TOKEN'
