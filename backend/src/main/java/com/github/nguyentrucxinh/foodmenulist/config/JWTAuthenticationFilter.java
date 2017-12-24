@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private static final Logger log = Logger.getLogger(JWTAuthenticationFilter.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(JWTAuthenticationFilter.class.getName());
 
     private AuthenticationManager authenticationManager;
 
@@ -37,7 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             User creds = new ObjectMapper()
                     .readValue(req.getInputStream(), User.class);
 
-            log.info("Username: " + creds.getUsername());
+            LOGGER.info("Username: " + creds.getUsername());
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -62,7 +62,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
                 .compact();
 
-        log.info("Token: " + token);
+        LOGGER.info("Token: " + token);
 
         res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
     }

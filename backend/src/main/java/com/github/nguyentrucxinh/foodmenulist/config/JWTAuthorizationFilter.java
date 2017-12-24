@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private static final Logger log = Logger.getLogger(JWTAuthorizationFilter.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(JWTAuthorizationFilter.class.getName());
 
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
@@ -30,7 +30,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                                     FilterChain chain) throws IOException, ServletException {
         String path = req.getRequestURI();
 
-        log.info("Path: " + path);
+        LOGGER.info("Path: " + path);
 
         if (!path.startsWith(SecurityConstants.API_ADMIN_URL + "/")) {
             chain.doFilter(req, res);
@@ -39,7 +39,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         String header = req.getHeader(SecurityConstants.HEADER_STRING);
 
-        log.info("Header: " + header);
+        LOGGER.info("Header: " + header);
 
         if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             chain.doFilter(req, res);
@@ -55,7 +55,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
-        log.info("Token: " + token);
+        LOGGER.info("Token: " + token);
         if (token != null) {
             try {
                 Claims claims = Jwts.parser()
@@ -66,17 +66,17 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 // parse the token.
                 String user = claims.getSubject();
 
-                log.info("User: " + user);
+                LOGGER.info("User: " + user);
 
                 if (user != null) {
                     return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
                 }
                 return null;
             } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {
-                log.info("Invalid JWT Token");
+                LOGGER.info("Invalid JWT Token");
                 throw new BadCredentialsException("Invalid JWT token: ", ex);
             } catch (ExpiredJwtException expiredEx) {
-                log.info("JWT Token is expired");
+                LOGGER.info("JWT Token is expired");
                 throw new BadCredentialsException("JWT Token is expired: ", expiredEx);
             }
         }
