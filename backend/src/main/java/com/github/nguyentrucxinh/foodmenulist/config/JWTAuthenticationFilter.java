@@ -2,9 +2,8 @@ package com.github.nguyentrucxinh.foodmenulist.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
+import com.github.nguyentrucxinh.foodmenulist.common.utils.JwtsUtils;
 import com.github.nguyentrucxinh.foodmenulist.domain.User;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Logger;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -56,11 +54,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
 
-        String token = Jwts.builder()
-                .setSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
-                .compact();
+        String token = JwtsUtils.createToken(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername());
 
         LOGGER.info("Token: " + token);
 

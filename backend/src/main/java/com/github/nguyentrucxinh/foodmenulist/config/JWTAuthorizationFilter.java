@@ -1,6 +1,7 @@
 package com.github.nguyentrucxinh.foodmenulist.config;
 
 import com.github.nguyentrucxinh.foodmenulist.common.constants.SecurityConstants;
+import com.github.nguyentrucxinh.foodmenulist.common.utils.JwtsUtils;
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -57,14 +58,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(SecurityConstants.HEADER_STRING);
         LOGGER.info("Token: " + token);
         if (token != null) {
-            try {
-                Claims claims = Jwts.parser()
-                        .setSigningKey(SecurityConstants.SECRET.getBytes())
-                        .parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
-                        .getBody();
 
-                // parse the token.
-                String user = claims.getSubject();
+            try {
+                String user = JwtsUtils.parseToken(token.replace(SecurityConstants.TOKEN_PREFIX, ""));
 
                 LOGGER.info("User: " + user);
 
