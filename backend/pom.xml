@@ -75,6 +75,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Exclude any jul-to-slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -118,6 +125,7 @@
         </dependency>
         <!-- [END Google Cloud Platform] -->
 
+        <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
