@@ -60,7 +60,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         if (token != null) {
 
             try {
-                String user = JwtsUtils.parseToken(token.replace(SecurityConstants.TOKEN_PREFIX, ""));
+                String user = JwtsUtils.parseToken(token.replace(SecurityConstants.TOKEN_PREFIX, "")).getSubject();
 
                 LOGGER.info("User: " + user);
 
