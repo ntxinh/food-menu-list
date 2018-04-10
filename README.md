@@ -1,3 +1,7 @@
+# SCREENSHOTS
+
+![Overview](https://raw.githubusercontent.com/nguyentrucxinh/food-menu-list/master/screenshots/overview.gif)
+
 # STACK
 
 ## BACKEND
