@@ -1,6 +1,6 @@
 # SCREENSHOTS
 
-![Overview](https://raw.githubusercontent.com/nguyentrucxinh/food-menu-list/master/screenshots/overview.gif)
+![Overview](https://raw.githubusercontent.com/nguyentrucxinh/food-menu-list/develop/screenshots/overview.gif)
 
 # STACK
 
